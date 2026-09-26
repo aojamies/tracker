@@ -352,7 +352,8 @@ function erzeugeKursinfoSeite(): void
 
     $trefferHtml = '';
     foreach ($treffer as $eintrag) {
-        $trefferHtml .= '<div class="result"><strong>' . html($eintrag['bezeichnung']) . '</strong><span>' . html($eintrag['isin']) . '</span><small>MaxDiffStab: ' . html($eintrag['diff']) . ' | MaxAbfall: ' . html($eintrag['abfall']) . '</small>' . erzeugeNachrichtenHtml($newsFuer($eintrag['isin'])) . '</div>';
+        $branche = $aktienNachIsin[$eintrag['isin']]['branche'] ?? 'keine Angabe';
+        $trefferHtml .= '<div class="result"><strong>' . html($eintrag['bezeichnung']) . '</strong><span>' . html($branche) . '</span><span>' . html($eintrag['isin']) . '</span><small>MaxDiffStab: ' . html($eintrag['diff']) . ' | MaxAbfall: ' . html($eintrag['abfall']) . '</small>' . erzeugeNachrichtenHtml($newsFuer($eintrag['isin'])) . '</div>';
     }
     if ($trefferHtml === '') {
         $trefferHtml = '<p class="empty">Keine Treffer aus dem letzten Analyse-Durchlauf.</p>';
@@ -383,12 +384,13 @@ function erzeugeKursinfoSeite(): void
                 $werte[] = ['zeit' => trim($felder[0]), 'wert' => (float) $wert];
             }
         }
-        $zeitreihen[] = ['isin' => $aktie['isin'], 'name' => $aktie['bezeichnung'], 'werte' => $werte];
+        $zeitreihen[] = ['isin' => $aktie['isin'], 'name' => $aktie['bezeichnung'], 'branche' => $aktie['branche'], 'werte' => $werte];
     }
 
     $axis = leseKursinfoKonfiguration(CONFIG_FILE);
     $datenJson = json_encode($zeitreihen, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_THROW_ON_ERROR);
-    $html = '<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Kursinfo</title><style>' . kursinfoStyles() . '</style></head><body><main><header><div><p class="eyebrow">MARKET TRACKER</p><h1>Kursinfo</h1></div><label for="axisLength">Zeitachse<select id="axisLength"><option>1 Tag</option><option>1 Woche</option><option>1 Monat</option><option>6 Monate</option><option>1 Jahr</option><option>alle Werte</option></select></label></header><section class="overview"><article><h2>Treffer</h2><p class="timestamp">Analyse: ' . html($letzterZeitpunkt ?: 'nicht vorhanden') . '</p>' . $trefferHtml . '</article><article><h2>Statistik</h2><p class="timestamp">Letzter Durchlauf</p>' . $statistikHtml . '</article></section><hr><section><div class="chart-heading"><h2>Kursverlaeufe</h2><span id="chartCount"></span></div><div id="charts" class="charts"></div></section></main><script>const series=' . $datenJson . ';const initialAxis=' . json_encode($axis, JSON_THROW_ON_ERROR) . ';' . kursinfoScript() . '</script></body></html>';
+    $html = '<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Kursinfo</title><style>' . kursinfoStyles() . '</style></head><body><main><header><div><p class="eyebrow">MARKET TRACKER</p><h1>Kursinfo</h1></div>'
+        . '<div class="filters"><label for="axisLength">Zeitachse<select id="axisLength"><option>1 Tag</option><option>1 Woche</option><option>1 Monat</option><option>6 Monate</option><option>1 Jahr</option><option>alle Werte</option></select></label><label for="industryFilter">Branche<select id="industryFilter"><option value="">Alle Branchen</option></select></label></div></header><section class="overview"><article><h2>Treffer</h2><p class="timestamp">Analyse: ' . html($letzterZeitpunkt ?: 'nicht vorhanden') . '</p>' . $trefferHtml . '</article><article><h2>Statistik</h2><p class="timestamp">Letzter Durchlauf</p>' . $statistikHtml . '</article></section><hr><section><div class="chart-heading"><h2>Kursverlaeufe</h2><span id="chartCount"></span></div><div id="charts" class="charts"></div></section></main><script>const series=' . $datenJson . ';const initialAxis=' . json_encode($axis, JSON_THROW_ON_ERROR) . ';' . kursinfoScript() . '</script></body></html>';
     if (file_put_contents(INFO_PAGE_FILE, $html, LOCK_EX) === false) {
         throw new RuntimeException('Die Kursinfo-Seite konnte nicht geschrieben werden.');
     }
@@ -430,7 +432,7 @@ function leseLetzteStatistik(): array
     return $ergebnis;
 }
 
-/** @param array{isin:string,bezeichnung:string} $aktie @return list<array{titel:string,url:string,quelle:string}> */
+/** @param array{isin:string,bezeichnung:string,branche?:string} $aktie @return list<array{titel:string,url:string,quelle:string}> */
 function holeKurznachrichten(array $aktie): array
 {
     try {
@@ -499,6 +501,7 @@ header { display: flex; align-items: end; justify-content: space-between; gap: 2
 h1, h2 { margin: 0; font-weight: 400; } h1 { font-size: clamp(36px, 5vw, 64px); line-height: .95; } h2 { font-size: 24px; }
 label { display: grid; gap: 7px; color: var(--muted); font: 700 12px Arial, sans-serif; text-transform: uppercase; letter-spacing: 1px; }
 select { min-width: 160px; padding: 11px 34px 11px 12px; border: 1px solid var(--line); border-radius: 3px; background: white; color: var(--ink); font: 15px Georgia, serif; }
+.filters { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; }
 .overview { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; } article { min-height: 190px; padding: 22px; border: 1px solid var(--line); border-top: 4px solid var(--accent); background: var(--panel); box-shadow: 0 10px 30px rgba(23,34,31,.05); }
 .timestamp, .empty, .result span, .result small, .stat span, .stat small, #chartCount { color: var(--muted); font: 12px/1.5 Arial, sans-serif; } .timestamp { margin: 7px 0 16px; }
 .result, .stat { display: grid; gap: 4px; padding: 11px 0; border-top: 1px solid var(--line); } .result strong, .stat strong { font-size: 16px; } .result small, .stat small { word-break: break-word; }
@@ -515,18 +518,28 @@ function kursinfoScript(): string
         return <<<'JS'
 const ranges = {'1 Tag': 1, '1 Woche': 7, '1 Monat': 31, '6 Monate': 183, '1 Jahr': 365};
 const axisLength = document.getElementById('axisLength');
+const industryFilter = document.getElementById('industryFilter');
 axisLength.value = initialAxis;
+const industries = [...new Set(series.map((item) => item.branche).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'de'));
+industries.forEach((industry) => {
+    const option = document.createElement('option');
+    option.value = industry;
+    option.textContent = industry;
+    industryFilter.append(option);
+});
 function renderCharts() {
     const days = ranges[axisLength.value];
     const cutoff = days ? Date.now() - days * 86400000 : 0;
+    const visibleSeries = series.filter((item) => !industryFilter.value || item.branche === industryFilter.value);
     const container = document.getElementById('charts');
     container.replaceChildren();
     let shown = 0;
-    series.forEach((item) => {
+    visibleSeries.forEach((item) => {
         const values = item.werte.filter((point) => !cutoff || Date.parse(point.zeit.replace(' ', 'T')) >= cutoff);
         const card = document.createElement('article');
         card.className = 'chart';
         const title = document.createElement('h3'); title.textContent = item.name; card.append(title);
+        const industry = document.createElement('p'); industry.textContent = item.branche; card.append(industry);
         const subtitle = document.createElement('p'); subtitle.textContent = item.isin; card.append(subtitle);
         if (!values.length) { const empty = document.createElement('div'); empty.className = 'no-data'; empty.textContent = 'Keine Werte im Zeitraum'; card.append(empty); container.append(card); return; }
         shown++;
@@ -543,10 +556,10 @@ function renderCharts() {
         addLabel(formatNumber(max), left - 5, top + 3, 'end'); addLabel(formatNumber(min), left - 5, top + plotHeight, 'end'); addLabel(dateLabel(values[0].zeit), left, height - 7, 'start'); addLabel(dateLabel(values[values.length - 1].zeit), width - right, height - 7, 'end');
         const path = document.createElementNS('http://www.w3.org/2000/svg', 'polyline'); path.setAttribute('points', points); path.classList.add('line'); svg.append(path); card.append(svg); container.append(card);
     });
-    document.getElementById('chartCount').textContent = `${shown} von ${series.length} Aktien mit Werten`;
+    document.getElementById('chartCount').textContent = `${shown} von ${visibleSeries.length} Aktien mit Werten`;
 }
 function formatNumber(value) { return Number(value).toLocaleString('de-DE', {maximumFractionDigits: 2}); }
-axisLength.addEventListener('change', renderCharts); renderCharts();
+axisLength.addEventListener('change', renderCharts); industryFilter.addEventListener('change', renderCharts); renderCharts();
 JS;
 }
 
@@ -647,7 +660,7 @@ function leseStabilitaetsKonfiguration(string $dateiname): array
     return $werte;
 }
 
-/** @return list<array{isin: string, bezeichnung: string}> */
+/** @return list<array{isin: string, bezeichnung: string, branche: string}> */
 function leseIsins(string $dateiname): array
 {
     $zeilen = file($dateiname, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
@@ -657,10 +670,11 @@ function leseIsins(string $dateiname): array
 
     $aktien = [];
     foreach ($zeilen as $zeile) {
-        if (preg_match('/^\s*\d+\s*\|\s*([A-Z0-9]{12})\s*\|\s*([^|]*?)\s*(?:\|.*)?\s*$/i', $zeile, $treffer) === 1) {
+        if (preg_match('/^\s*\d+\s*\|\s*([A-Z0-9]{12})\s*\|\s*([^|]*?)\s*(?:\|\s*([^|]*))?\s*$/i', $zeile, $treffer) === 1) {
             $aktien[] = [
                 'isin' => strtoupper($treffer[1]),
                 'bezeichnung' => trim($treffer[2]),
+                'branche' => trim($treffer[3] ?? '') ?: 'keine Angabe',
             ];
         }
     }
