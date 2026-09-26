@@ -114,6 +114,34 @@ Der Browseraufruf erzeugt ebenfalls nur `kursinfo.html`. Der Parameter muss exak
 
 Der Webserver muss Schreibrechte auf `kursinfo.html` und die übrigen Datendateien besitzen. Der Parameter sollte nicht ungeschützt öffentlich erreichbar sein, wenn beliebige Besucher die Seite neu erzeugen können. Geeignet sind zum Beispiel HTTP-Authentifizierung, eine interne URL oder eine Zugriffsbeschränkung auf die eigene IP-Adresse.
 
+## Aktienliste warten
+
+Das Python-Programm `aktienliste_wartung.py` bietet Prüfungen für
+`aktienliste.txt`. Es wird im Projektverzeichnis gestartet:
+
+```powershell
+py aktienliste_wartung.py
+```
+
+Im Menü stehen derzeit diese Prüfungen zur Verfügung:
+
+1. Duplikate anhand gleicher ISIN oder gleicher Aktienbezeichnung suchen.
+2. Prüfen, ob die Aktienbezeichnungen alphabetisch aufsteigend sortiert sind.
+3. Eine Aktie anhand ihrer ISIN oder fortlaufenden Nummer entfernen. Nach
+	Bestätigung wird ihre Spalte aus `kurstabelle.txt` entfernt und die
+	Nummerierung in `aktienliste.txt` aktualisiert.
+4. Eine Aktie mit ISIN, Bezeichnung, Branche und aktuell bekanntem Kurswert
+	erfassen. Nach Bestätigung wird sie alphabetisch einsortiert und der
+	eingegebene Kurswert als Platzhalter in allen bisherigen Zeitzeilen ergänzt.
+5. Eine Aktie anhand ihrer ISIN oder Nummer an eine neue laufende Nummer
+	verschieben. Die Aktienzeile, Nummerierung und zugehörige Kursspalte mit allen
+	historischen Werten werden gemeinsam umgeordnet.
+
+Vor dem Ändern prüft das Programm, ob Überschriften und Spaltenanzahl der
+Kurstabelle zur Aktienliste passen. Bei einer Abweichung wird abgebrochen, ohne
+Dateien zu ändern. Eine bereits vorhandene ISIN kann nicht nochmals eingefügt
+werden.
+
 ## Konfiguration
 
 Die Datei `tracker.cfg` enthält unter anderem:
