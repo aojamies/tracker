@@ -657,7 +657,7 @@ function leseIsins(string $dateiname): array
 
     $aktien = [];
     foreach ($zeilen as $zeile) {
-        if (preg_match('/^\s*\d+\s*\|\s*([A-Z0-9]{12})\s*\|\s*(.*?)\s*$/i', $zeile, $treffer) === 1) {
+        if (preg_match('/^\s*\d+\s*\|\s*([A-Z0-9]{12})\s*\|\s*([^|]*?)\s*(?:\|.*)?\s*$/i', $zeile, $treffer) === 1) {
             $aktien[] = [
                 'isin' => strtoupper($treffer[1]),
                 'bezeichnung' => trim($treffer[2]),
