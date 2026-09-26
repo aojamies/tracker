@@ -136,6 +136,9 @@ Im Menü stehen derzeit diese Prüfungen zur Verfügung:
 5. Eine Aktie anhand ihrer ISIN oder Nummer an eine neue laufende Nummer
 	verschieben. Die Aktienzeile, Nummerierung und zugehörige Kursspalte mit allen
 	historischen Werten werden gemeinsam umgeordnet.
+6. Die Wertpapierbezeichnung einer Aktie ändern. Die Liste wird alphabetisch
+	neu einsortiert und der Spaltenkopf in `kurstabelle.txt` entsprechend
+	angepasst; historische Kurswerte bleiben der Aktie zugeordnet.
 
 Vor dem Ändern prüft das Programm, ob Überschriften und Spaltenanzahl der
 Kurstabelle zur Aktienliste passen. Bei einer Abweichung wird abgebrochen, ohne

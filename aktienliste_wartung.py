@@ -25,6 +25,7 @@ def lese_aktien():
                         "nummer": int(treffer.group(1)),
                         "isin": treffer.group(2).upper(),
                         "bezeichnung": treffer.group(3).strip(),
+                        "branche": (treffer.group(4) or "").strip(),
                         "zeilennummer": zeilenindex + 1,
                         "index": len(aktien),
                         "zeilenindex": zeilenindex,
@@ -219,6 +220,55 @@ def bereite_aktienliste_mit_verschobener_aktie_vor(aktien, aktie, zielposition):
     return ("\ufeff" if hat_bom else "") + "".join(neue_zeilen)
 
 
+def aktualisiere_bezeichnung(zeile, bezeichnung):
+    prefix = re.match(r"^(\s*\d+\s*\|\s*[A-Z0-9]{12}\s*\|\s*)", zeile)
+    if prefix is None:
+        raise ValueError("Eine Aktienzeile hat ein ungültiges Format.")
+    ende_bezeichnung = zeile.find("|", prefix.end())
+    if ende_bezeichnung < 0:
+        raise ValueError("In einer Aktienzeile fehlt die Branche.")
+    breite = ende_bezeichnung - prefix.end()
+    if len(bezeichnung) > breite:
+        raise ValueError(f"Die Bezeichnung darf höchstens {breite} Zeichen lang sein.")
+    return prefix.group(1) + bezeichnung.ljust(breite) + zeile[ende_bezeichnung:]
+
+
+def bereite_aktienliste_mit_neuer_bezeichnung_vor(aktien, aktie, bezeichnung):
+    original = AKTIENLISTE.read_bytes()
+    hat_bom = original.startswith(b"\xef\xbb\xbf")
+    zeilen = original.decode("utf-8-sig").splitlines(keepends=True)
+    neue_reihenfolge = list(aktien)
+    geaenderte_aktie = dict(neue_reihenfolge.pop(aktie["index"]))
+    geaenderte_aktie["bezeichnung"] = bezeichnung
+    zielposition = next(
+        (
+            index
+            for index, andere_aktie in enumerate(neue_reihenfolge)
+            if andere_aktie["bezeichnung"].casefold() > bezeichnung.casefold()
+        ),
+        len(neue_reihenfolge),
+    )
+    neue_reihenfolge.insert(zielposition, geaenderte_aktie)
+    neue_zeilen = []
+    aktienindex = 0
+
+    for zeile in zeilen:
+        inhalt, zeilenende = teile_zeilenende(zeile)
+        if ZEILENMUSTER.match(inhalt):
+            quelle = neue_reihenfolge[aktienindex]
+            quellinhalt, _ = teile_zeilenende(zeilen[quelle["zeilennummer"] - 1])
+            if quelle["index"] == aktie["index"]:
+                quellinhalt = aktualisiere_bezeichnung(quellinhalt, bezeichnung)
+            neue_zeilen.append(aktualisiere_nummer(quellinhalt, aktienindex + 1) + zeilenende)
+            aktienindex += 1
+        else:
+            neue_zeilen.append(zeile)
+
+    if aktienindex != len(aktien):
+        raise ValueError("Die Aktienliste wurde während des Vorgangs verändert.")
+    return ("\ufeff" if hat_bom else "") + "".join(neue_zeilen), zielposition
+
+
 def bereite_kurstabelle_mit_verschobener_aktie_vor(aktien, aktie, zielposition):
     original, hat_bom, zeilen, _ = lese_und_valide_kurstabelle(aktien)
     neue_reihenfolge = list(range(len(aktien)))
@@ -233,6 +283,30 @@ def bereite_kurstabelle_mit_verschobener_aktie_vor(aktien, aktie, zielposition):
             continue
         felder = inhalt.split("\t")
         neue_felder = [felder[0]] + [felder[index + 1] for index in neue_reihenfolge]
+        neue_zeilen.append("\t".join(neue_felder) + zeilenende)
+
+    neues_text = "".join(neue_zeilen)
+    return ((b"\xef\xbb\xbf" if hat_bom else b"") + neues_text.encode("utf-8"), original)
+
+
+def bereite_kurstabelle_mit_neuer_bezeichnung_vor(
+    aktien, aktie, bezeichnung, zielposition
+):
+    original, hat_bom, zeilen, _ = lese_und_valide_kurstabelle(aktien)
+    neue_reihenfolge = list(range(len(aktien)))
+    bewegte_spalte = neue_reihenfolge.pop(aktie["index"])
+    neue_reihenfolge.insert(zielposition, bewegte_spalte)
+    neue_zeilen = []
+
+    for zeilennummer, zeile in enumerate(zeilen, start=1):
+        inhalt, zeilenende = teile_zeilenende(zeile)
+        if not inhalt:
+            neue_zeilen.append(zeile)
+            continue
+        felder = inhalt.split("\t")
+        neue_felder = [felder[0]] + [felder[index + 1] for index in neue_reihenfolge]
+        if zeilennummer == 1:
+            neue_felder[zielposition + 1] = bezeichnung
         neue_zeilen.append("\t".join(neue_felder) + zeilenende)
 
     neues_text = "".join(neue_zeilen)
@@ -518,6 +592,68 @@ def bewege_aktie(aktien):
     print(f"{aktie['bezeichnung']} wurde verschoben; die Nummerierung wurde aktualisiert.")
 
 
+def aendere_bezeichnung(aktien):
+    eingabe = input("ISIN oder fortlaufende Nummer der Aktie: ").strip().upper()
+    if re.fullmatch(r"[A-Z0-9]{12}", eingabe):
+        treffer = [aktie for aktie in aktien if aktie["isin"] == eingabe]
+    elif eingabe.isdecimal():
+        treffer = [aktie for aktie in aktien if aktie["nummer"] == int(eingabe)]
+    else:
+        print("Bitte eine gültige ISIN oder Nummer eingeben.")
+        return
+
+    if not treffer:
+        print("Keine passende Aktie gefunden.")
+        return
+    if len(treffer) > 1:
+        print("Die ISIN kommt mehrfach vor. Bitte die zu ändernde Nummer auswählen:")
+        for aktie in treffer:
+            print(f"  Nr. {aktie['nummer']}: {aktie['bezeichnung']}")
+        nummer = input("Nummer: ").strip()
+        if not nummer.isdecimal():
+            print("Ungültige Nummer; es wurde nichts geändert.")
+            return
+        treffer = [aktie for aktie in treffer if aktie["nummer"] == int(nummer)]
+        if len(treffer) != 1:
+            print("Keine eindeutige passende Nummer; es wurde nichts geändert.")
+            return
+
+    aktie = treffer[0]
+    bezeichnung = input("Neue Wertpapierbezeichnung: ").strip()
+    if not bezeichnung or any(zeichen in bezeichnung for zeichen in "|\t\r\n"):
+        print("Die Bezeichnung darf nicht leer sein oder | bzw. Tab enthalten.")
+        return
+    if bezeichnung == aktie["bezeichnung"]:
+        print("Die Bezeichnung ist unverändert; es wurde nichts geändert.")
+        return
+
+    neuer_listeninhalt, zielposition = bereite_aktienliste_mit_neuer_bezeichnung_vor(
+        aktien, aktie, bezeichnung
+    )
+    neuer_kurstabelleninhalt, alter_kurstabelleninhalt = (
+        bereite_kurstabelle_mit_neuer_bezeichnung_vor(
+            aktien, aktie, bezeichnung, zielposition
+        )
+    )
+    print(
+        f"Bezeichnung: {aktie['bezeichnung']} -> {bezeichnung}; "
+        f"neue Position: {zielposition + 1}"
+    )
+    if input("Bezeichnung und Kurstabelle aktualisieren? [j/N]: ").strip().casefold() not in {
+        "j",
+        "ja",
+    }:
+        print("Abgebrochen; es wurde nichts geändert.")
+        return
+
+    schreibe_dateipaar(
+        neuer_listeninhalt.encode("utf-8"),
+        neuer_kurstabelleninhalt,
+        alter_kurstabelleninhalt,
+    )
+    print("Die Bezeichnung wurde aktualisiert; Liste und Kurstabelle sind synchron.")
+
+
 def main():
     aktionen = {
         "1": ("Duplikate nach ISIN und Bezeichnung suchen", zeige_duplikate),
@@ -525,6 +661,7 @@ def main():
         "3": ("Aktie per ISIN oder Nummer entfernen", entferne_aktie),
         "4": ("Neue Aktie alphabetisch einfügen", fuege_aktie_hinzu),
         "5": ("Aktie an eine andere Listenposition bewegen", bewege_aktie),
+        "6": ("Wertpapierbezeichnung ändern", aendere_bezeichnung),
     }
 
     while True:
