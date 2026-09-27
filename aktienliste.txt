@@ -84,8 +84,8 @@ Nr. | ISIN         | Bezeichnung des Wertpapiers                                
 82  | DE0006083405 | Lanxess AG (MDAX)                                                 | Spezialchemie
 83  | DE000LEG1110 | LEG Immobilien SE (MDAX)                                          | Immobilienwirtschaft
 84  | US53227V1008 | Light & Wonder, Inc. (USA Mittelgroß (S&P 400))                   | Glücksspieltechnologie & Spiele
-85  | DE0008232125 | Lufthansa AG (MDAX)                                               | Fluggesellschaften
-86  | DE0006483001 | Lufthansa AG (MDAX)                                               | Fluggesellschaften
+85  | IE000S9YS762 | Linde AG                                                          | Chemie
+86  | DE0008232125 | Lufthansa AG (MDAX)                                               | Fluggesellschaften
 87  | FR0000121014 | LVMH Moët Hennessy Louis Vuitton (EURO STOXX 50 / STOXX Europe 50)| Luxusgüter
 88  | AU000000MQG1 | Macquarie Group Ltd. (Australien (ASX 200))                       | Finanzdienstleistungen & Investmentbanking
 89  | US57636Q1040 | Mastercard Inc. (Dow Jones)                                       | Finanztechnologie (Zahlungsnetzwerke)
@@ -96,20 +96,20 @@ Nr. | ISIN         | Bezeichnung des Wertpapiers                                
 94  | US5949181045 | Microsoft (Dow Jones)                                             | Software & Cloud-Computing
 95  | JP3496400007 | Mitsubishi UFJ Financial Group (Tokio (Nikkei 225))               | Banken & Finanzdienstleistungen
 96  | DE0006632003 | MorphiSys (DAX)                                                   | Biotechnologie & Pharma
-97  | DE0006223407 | MTU Aero Engines (DAX)                                            | Luftfahrtzulieferer (Triebwerke)
-98  | DE000A0D9PT0 | MTU Aero Engines (DAX)                                            | Luftfahrtzulieferer (Triebwerke)
-99  | DE0008430026 | Münchener Rückversicherungs-Gesellschaft (DAX / EURO STOXX 50)    | Rückversicherungen
-100 | AU000000NAB4 | National Australia Bank Ltd. (Australien (ASX 200))               | Banken
-101 | CH0038863350 | Nestlé (STOXX Europe 50)                                          | Lebensmittel & Getränke
-102 | US6541061031 | Nike Inc. (Dow Jones)                                             | Sportartikel & Bekleidung
-103 | FI0009000681 | Nokia (EURO STOXX 50)                                             | Telekommunikationsausrüstung
-104 | FI4000297767 | Nordea Bank (EURO STOXX 50)                                       | Banken & Finanzdienstleistungen
-105 | CH0012005267 | Novartis (STOXX Europe 50)                                        | Pharma
-106 | DK0062498110 | Novo Nordisk (STOXX Europe 50)                                    | Pharma & Biotechnologie (Diabetes)
-107 | US67066G1040 | NVIDIA (Dow Jones)                                                | Halbleiterindustrie (Grafikprozessoren/KI)
-108 | FR0000120693 | Pernod Ricard (EURO STOXX 50)                                     | Spirituosen & Wein
-109 | DE000PAG9113 | Porsche AG Vz (DAX)                                               | Automobilindustrie (Sportwagen)
-110 | DE000PAH0038 | Porsche Automobil Holding (DAX)                                   | Beteiligungsgesellschaft (Automobil)
+97  | DE000A0D9PT0 | MTU Aero Engines (DAX)                                            | Luftfahrtzulieferer (Triebwerke)
+98  | DE0008430026 | Münchener Rückversicherungs-Gesellschaft (DAX / EURO STOXX 50)    | Rückversicherungen
+99  | AU000000NAB4 | National Australia Bank Ltd. (Australien (ASX 200))               | Banken
+100 | CH0038863350 | Nestlé (STOXX Europe 50)                                          | Lebensmittel & Getränke
+101 | US6541061031 | Nike Inc. (Dow Jones)                                             | Sportartikel & Bekleidung
+102 | FI0009000681 | Nokia (EURO STOXX 50)                                             | Telekommunikationsausrüstung
+103 | FI4000297767 | Nordea Bank (EURO STOXX 50)                                       | Banken & Finanzdienstleistungen
+104 | CH0012005267 | Novartis (STOXX Europe 50)                                        | Pharma
+105 | DK0062498110 | Novo Nordisk (STOXX Europe 50)                                    | Pharma & Biotechnologie (Diabetes)
+106 | US67066G1040 | NVIDIA (Dow Jones)                                                | Halbleiterindustrie (Grafikprozessoren/KI)
+107 | FR0000120693 | Pernod Ricard (EURO STOXX 50)                                     | Spirituosen & Wein
+108 | DE000PAG9113 | Porsche AG Vz (DAX)                                               | Automobilindustrie (Sportwagen)
+109 | DE000PAH0038 | Porsche Automobil Holding (DAX)                                   | Beteiligungsgesellschaft (Automobil)
+110 | DE0006223407 | ProCredit                                                         | Banken
 111 | US7427181094 | Procter & Gamble Co. (Dow Jones)                                  | Konsumgüter
 112 | NL0013654783 | Prosus (EURO STOXX 50)                                            | Beteiligungsgesellschaft (Internet & Tech)
 113 | DE0006969603 | Puma SE (MDAX)                                                    | Sportartikel & Bekleidung
@@ -125,8 +125,8 @@ Nr. | ISIN         | Bezeichnung des Wertpapiers                                
 123 | DE0007164600 | SAP (DAX / EURO STOXX 50 / STOXX Europe 50)                       | Software & IT-Dienstleistungen
 124 | DE000SHA0159 | Schaeffler AG (MDAX)                                              | Automobil- & Industriezulieferer
 125 | FR0000121972 | Schneider Electric (EURO STOXX 50)                                | Energiemanagement & Automatisierung
-126 | DE0007568578 | SFC Energy AG (SDAX)                                              | Brennstoffzellen & Energielösungen
-127 | DE000A2G8X31 | SFC Energy AG (SDAX)                                              | Brennstoffzellen & Energielösungen
+126 | DE000A2G8X31 | Serviceware I                                                     | IT-Dienstleistungen
+127 | DE0007568578 | SFC Energy AG (SDAX)                                              | Brennstoffzellen & Energielösungen
 128 | GB00BP6MXD84 | Shell (STOXX Europe 50)                                           | Öl & Gas / Energie
 129 | JP3371200001 | Shin-Etsu Chemical Co. Ltd. (Tokio (Nikkei 225))                  | Chemieindustrie (Silizium/Halbleitermaterialien)
 130 | DE0007236101 | Siemens (DAX / EURO STOXX 50 / STOXX Europe 50)                   | Technologie & Mischkonzern (Industrie/Infrastruktur)
