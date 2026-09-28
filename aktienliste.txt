@@ -11,26 +11,26 @@ Nr. | ISIN         | Bezeichnung des Wertpapiers                                
 9   | KYG017191142 | Alibaba Group Holding Ltd. (Hong Kong (Hang Seng))                | E-Commerce & Technologie
 10  | DE0008404005 | Allianz (DAX / EURO STOXX 50 / STOXX Europe 50)                   | Versicherungen & Finanzdienstleistungen
 11  | US02079K3059 | Alphabet Inc. (Dow Jones)                                         | Internet, Software & Technologie
-12  | DE000A0LDVA1 | Alstria Office REIT (MDAX)                                        | Immobilien
-13  | US0231351067 | Amazon.com Inc. (Dow Jones)                                       | E-Commerce & Cloud-Computing
-14  | US0311621009 | Amgen Inc. (Dow Jones)                                            | Biotechnologie & Pharma
-15  | BE0974293251 | Anheuser-Busch InBev (EURO STOXX 50)                              | Brauerei & Getränke
-16  | US0378331005 | Apple Inc. (Dow Jones)                                            | Unterhaltungselektronik & Hardware
-17  | NL0010273215 | ASML Holding (EURO STOXX 50 / STOXX Europe 50)                    | Halbleiterindustrie (Ausrüstung)
-18  | GB0009895310 | AstraZeneca (STOXX Europe 50)                                     | Pharma & Biotechnologie
-19  | GB0009895292 | AstraZeneca PLC (STOXX Europe 50)                                 | Pharma & Biotechnologie
-20  | FR0000120628 | AXA (EURO STOXX 50)                                               | Versicherungen
-21  | ES0113211835 | Banco Bilbao Vizcaya Argentaria (EURO STOXX 50)                   | Banken & Finanzdienstleistungen
-22  | ES0113900J37 | Banco Santander (EURO STOXX 50)                                   | Banken & Finanzdienstleistungen
-23  | DE000BASF111 | BASF SE (DAX / EURO STOXX 50)                                     | Chemieindustrie
-24  | DE000BAY0017 | Bayer AG (DAX / EURO STOXX 50)                                    | Pharma & Agrarchemie
-25  | DE0005200000 | Beiersdorf AG (SDAX)                                              | Konsumgüter & Kosmetik
-26  | AU000000BHP4 | BHP Group Ltd. (Australien (ASX 200))                             | Bergbau & Rohstoffe
-27  | DE0005190003 | BMW AG (DAX / EURO STOXX 50)                                      | Automobilindustrie
-28  | FR0000131104 | BNP Paribas (EURO STOXX 50)                                       | Banken & Finanzdienstleistungen
-29  | US0970231058 | Boeing Company (Dow Jones)                                        | Luft- und Raumfahrt / Verteidigung
-30  | GB0007980591 | BP (STOXX Europe 50)                                              | Öl & Gas / Energie
-31  | DE0006983008 | Brenntag SE (DAX)                                                 | Chemiedistribution
+12  | US0231351067 | Amazon.com Inc. (Dow Jones)                                       | E-Commerce & Cloud-Computing
+13  | US0311621009 | Amgen Inc. (Dow Jones)                                            | Biotechnologie & Pharma
+14  | BE0974293251 | Anheuser-Busch InBev (EURO STOXX 50)                              | Brauerei & Getränke
+15  | US0378331005 | Apple Inc. (Dow Jones)                                            | Unterhaltungselektronik & Hardware
+16  | NL0010273215 | ASML Holding (EURO STOXX 50 / STOXX Europe 50)                    | Halbleiterindustrie (Ausrüstung)
+17  | GB0009895310 | AstraZeneca (STOXX Europe 50)                                     | Pharma & Biotechnologie
+18  | GB0009895292 | AstraZeneca PLC (STOXX Europe 50)                                 | Pharma & Biotechnologie
+19  | FR0000120628 | AXA (EURO STOXX 50)                                               | Versicherungen
+20  | ES0113211835 | Banco Bilbao Vizcaya Argentaria (EURO STOXX 50)                   | Banken & Finanzdienstleistungen
+21  | ES0113900J37 | Banco Santander (EURO STOXX 50)                                   | Banken & Finanzdienstleistungen
+22  | DE000BASF111 | BASF SE (DAX / EURO STOXX 50)                                     | Chemieindustrie
+23  | DE000BAY0017 | Bayer AG (DAX / EURO STOXX 50)                                    | Pharma & Agrarchemie
+24  | DE0005200000 | Beiersdorf AG (SDAX)                                              | Konsumgüter & Kosmetik
+25  | AU000000BHP4 | BHP Group Ltd. (Australien (ASX 200))                             | Bergbau & Rohstoffe
+26  | DE0005190003 | BMW AG (DAX / EURO STOXX 50)                                      | Automobilindustrie
+27  | FR0000131104 | BNP Paribas (EURO STOXX 50)                                       | Banken & Finanzdienstleistungen
+28  | US0970231058 | Boeing Company (Dow Jones)                                        | Luft- und Raumfahrt / Verteidigung
+29  | GB0007980591 | BP (STOXX Europe 50)                                              | Öl & Gas / Energie
+30  | DE0006983008 | Brenntag SE (DAX)                                                 | Chemiedistribution
+31  | CA11271J1075 | Brookfield Rg-A                                                   | Investment
 32  | US1491231015 | Caterpillar Inc. (Dow Jones)                                      | Baumaschinen & Schwerindustrie
 33  | DE000CEG1111 | Ceconomy AG (SDAX)                                                | Elektronikeinzelhandel
 34  | CNE1000002H1 | China Construction Bank Corp. (Hong Kong (Hang Seng))             | Banken

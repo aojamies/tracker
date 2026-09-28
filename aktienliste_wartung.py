@@ -1,9 +1,14 @@
+import json
 import os
 import re
 import tempfile
 from collections import defaultdict
 from decimal import Decimal, InvalidOperation
+from math import isfinite
 from pathlib import Path
+from urllib.error import HTTPError, URLError
+from urllib.parse import quote
+from urllib.request import Request, urlopen
 
 
 AKTIENLISTE = Path(__file__).resolve().parent / "aktienliste.txt"
@@ -411,6 +416,64 @@ def schreibe_dateipaar(neuer_listeninhalt, neuer_kurstabelleninhalt, alter_kurst
             temp_rollback.unlink(missing_ok=True)
 
 
+def yahoo_request(url):
+    anfrage = Request(
+        url,
+        headers={
+            "Accept": "application/json",
+            "User-Agent": "Aktienkurs-Skript/1.0",
+        },
+    )
+    try:
+        with urlopen(anfrage, timeout=20) as antwort:
+            return json.load(antwort)
+    except (HTTPError, URLError, TimeoutError, json.JSONDecodeError) as fehler:
+        raise RuntimeError(f"Yahoo-Finance-Anfrage fehlgeschlagen: {fehler}") from fehler
+
+
+def ermittle_yahoo_symbol(isin, bezeichnung):
+    suchbegriffe = [isin]
+    name_ohne_index = re.sub(r"\s*\([^)]*\)\s*$", "", bezeichnung)
+    if name_ohne_index:
+        suchbegriffe.append(name_ohne_index)
+
+    for suchbegriff in suchbegriffe:
+        daten = yahoo_request(
+            "https://query1.finance.yahoo.com/v1/finance/search?q="
+            + quote(suchbegriff)
+        )
+        for quote_treffer in daten.get("quotes", []):
+            if quote_treffer.get("quoteType") == "EQUITY" and quote_treffer.get(
+                "symbol"
+            ):
+                return quote_treffer["symbol"]
+    return None
+
+
+def ermittle_letzten_kurs(symbol, isin):
+    daten = yahoo_request(
+        "https://query1.finance.yahoo.com/v8/finance/chart/"
+        + quote(symbol)
+        + "?range=1d&interval=1d"
+    )
+    ergebnisse = daten.get("chart", {}).get("result", [])
+    kurs = (
+        ergebnisse[0].get("meta", {}).get("regularMarketPrice")
+        if ergebnisse
+        else None
+    )
+    if isinstance(kurs, bool) or not isinstance(kurs, (int, float)) or not isfinite(kurs):
+        raise RuntimeError(f"Kein aktueller Kurs für {isin} ({symbol}) geliefert.")
+    return f"{kurs:.6f}"
+
+
+def ermittle_aktuellen_kurs(isin, bezeichnung):
+    symbol = ermittle_yahoo_symbol(isin, bezeichnung)
+    if symbol is None:
+        raise RuntimeError(f"Kein Yahoo-Finance-Symbol für {isin} gefunden.")
+    return ermittle_letzten_kurs(symbol, isin)
+
+
 def entferne_aktie(aktien):
     eingabe = input("ISIN oder fortlaufende Nummer der Aktie: ").strip().upper()
     if re.fullmatch(r"[A-Z0-9]{12}", eingabe):
@@ -483,7 +546,21 @@ def fuege_aktie_hinzu(aktien):
         print("Bezeichnung und Branche dürfen nicht leer sein oder | bzw. Tab enthalten.")
         return
 
-    kurseingabe = input("Aktuell bekannter Kurswert (z. B. 123,45): ").strip()
+    vorgeschlagener_kurs = None
+    try:
+        vorgeschlagener_kurs = ermittle_aktuellen_kurs(isin, bezeichnung)
+        print(f"Aktueller Yahoo-Finance-Kurs: {vorgeschlagener_kurs}")
+    except RuntimeError as fehler:
+        print(f"Kurs konnte nicht automatisch abgerufen werden: {fehler}")
+
+    kursaufforderung = "Aktuell bekannter Kurswert"
+    if vorgeschlagener_kurs is not None:
+        kursaufforderung += f" [{vorgeschlagener_kurs}]"
+    kurseingabe = input(
+        f"{kursaufforderung} (Enter übernimmt den Vorschlag): "
+    ).strip()
+    if not kurseingabe and vorgeschlagener_kurs is not None:
+        kurseingabe = vorgeschlagener_kurs
     try:
         kurswert = Decimal(kurseingabe.replace(",", "."))
     except InvalidOperation:

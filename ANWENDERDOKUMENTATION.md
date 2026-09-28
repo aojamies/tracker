@@ -131,8 +131,12 @@ Im Menü stehen derzeit diese Prüfungen zur Verfügung:
 	Bestätigung wird ihre Spalte aus `kurstabelle.txt` entfernt und die
 	Nummerierung in `aktienliste.txt` aktualisiert.
 4. Eine Aktie mit ISIN, Bezeichnung, Branche und aktuell bekanntem Kurswert
-	erfassen. Nach Bestätigung wird sie alphabetisch einsortiert und der
-	eingegebene Kurswert als Platzhalter in allen bisherigen Zeitzeilen ergänzt.
+	erfassen. Nach Eingabe von ISIN und Bezeichnung wird der aktuelle Kurswert
+	über Yahoo Finance abgerufen und als Vorschlag angezeigt. Mit Enter kann
+	dieser Wert übernommen oder ein anderer Kurswert eingegeben werden. Wenn
+	der Abruf nicht gelingt, ist die manuelle Eingabe weiterhin möglich. Nach
+	Bestätigung wird die Aktie alphabetisch einsortiert und der Kurswert als
+	Platzhalter in allen bisherigen Zeitzeilen ergänzt.
 5. Eine Aktie anhand ihrer ISIN oder Nummer an eine neue laufende Nummer
 	verschieben. Die Aktienzeile, Nummerierung und zugehörige Kursspalte mit allen
 	historischen Werten werden gemeinsam umgeordnet.
