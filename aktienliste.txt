@@ -11,7 +11,7 @@ Nr. | ISIN         | Bezeichnung des Wertpapiers                                
 9   | KYG017191142 | Alibaba Group Holding Ltd. (Hong Kong (Hang Seng))                | E-Commerce & Technologie
 10  | DE0008404005 | Allianz (DAX / EURO STOXX 50 / STOXX Europe 50)                   | Versicherungen & Finanzdienstleistungen
 11  | US02079K3059 | Alphabet Inc. (Dow Jones)                                         | Internet, Software & Technologie
-12  | DE000A0LDVA1 | Alstria Office REIT (MDAX)                                        | Immobilien (REIT)
+12  | DE000A0LDVA1 | Alstria Office REIT (MDAX)                                        | Immobilien
 13  | US0231351067 | Amazon.com Inc. (Dow Jones)                                       | E-Commerce & Cloud-Computing
 14  | US0311621009 | Amgen Inc. (Dow Jones)                                            | Biotechnologie & Pharma
 15  | BE0974293251 | Anheuser-Busch InBev (EURO STOXX 50)                              | Brauerei & Getränke
@@ -82,7 +82,7 @@ Nr. | ISIN         | Bezeichnung des Wertpapiers                                
 80  | DE000KBX1006 | Knorr-Bremse AG (MDAX)                                            | Maschinenbau (Bremssysteme)
 81  | FR0000120321 | L'Oréal (EURO STOXX 50)                                           | Kosmetik & Konsumgüter
 82  | DE0006083405 | Lanxess AG (MDAX)                                                 | Spezialchemie
-83  | DE000LEG1110 | LEG Immobilien SE (MDAX)                                          | Immobilienwirtschaft
+83  | DE000LEG1110 | LEG Immobilien SE (MDAX)                                          | Immobilien
 84  | US53227V1008 | Light & Wonder, Inc. (USA Mittelgroß (S&P 400))                   | Glücksspieltechnologie & Spiele
 85  | IE000S9YS762 | Linde AG                                                          | Chemie
 86  | DE0008232125 | Lufthansa AG (MDAX)                                               | Fluggesellschaften
@@ -149,7 +149,7 @@ Nr. | ISIN         | Bezeichnung des Wertpapiers                                
 147 | US91324P1021 | UnitedHealth Group Inc. (Dow Jones)                               | Gesundheitsdienstleistungen & Krankenversicherung
 148 | US92532F1003 | Vertex Pharmaceuticals (Dow Jones)                                | Biotechnologie & Pharma
 149 | US92826C8394 | Visa Inc. (Dow Jones)                                             | Finanztechnologie (Zahlungsnetzwerke)
-150 | DE000A1ML7J1 | Vonovia SE (DAX)                                                  | Immobilienwirtschaft
+150 | DE000A1ML7J1 | Vonovia SE (DAX)                                                  | Immobilien
 151 | DE000WCH8881 | Wacker Chemie AG (MDAX)                                           | Chemieindustrie
 152 | AU000000WBC1 | Westpac Banking Corp. (Australien (ASX 200))                      | Banken
 153 | US98419M1009 | Xylem Inc. (USA Mittelgroß (S&P 400))                             | Wassertechnologie
