@@ -131,7 +131,7 @@ Nr. | ISIN         | Bezeichnung des Wertpapiers                                
 129 | DE0007236101 | Siemens (DAX / EURO STOXX 50 / STOXX Europe 50)                   | Technologie & Mischkonzern (Industrie/Infrastruktur)
 130 | DE000ENER6Y0 | Siemens Energy AG (DAX)                                           | Energietechnik & Kraftwerksbau
 131 | DE000SHL1006 | Siemens Healthineers AG (DAX)                                     | Medizintechnik
-132 | JP3436100004 | SoftBank Group Corp. (Tokio (Nikkei 225))                         | Beteiligungsgesellschaft / Telekommunikation
+132 | JP3436100006 | SoftBank                                                          | Investment
 133 | JP3435000009 | Sony Group Corp. (Tokio (Nikkei 225))                             | Unterhaltungs- & Elektronikkonzern
 134 | DE0006749705 | Stroeer SE & Co KGaA (MDAX)                                       | Außenwerbung & Medien
 135 | US86800U1043 | Super Micro Computer Inc. (USA Mittelgroß (S&P 400))              | Informationstechnologie (Server/Computerhardware)
