@@ -116,7 +116,7 @@ Nr. | ISIN         | Bezeichnung des Wertpapiers                                
 114 | US7594701077 | Reliance, Inc. (USA Mittelgroß (S&P 400))                         | Metallverarbeitung & Metalldistribution
 115 | DE0007030009 | Rheinmetall AG (DAX)                                              | Rüstungsindustrie & Automobilzulieferer
 116 | AU000000RIO7 | Rio Tinto Ltd. (Australien (ASX 200))                             | Bergbau & Rohstoffe
-117 | CH0012032048 | Roche Holding (STOXX Europe 50)                                   | Pharma & Diagnostik
+117 | CH1499059983 | Roche Holding (ROP)                                               | Pharma
 118 | DE0007037129 | RWE AG (DAX)                                                      | Energieversorgung / Erneuerbare Energien
 119 | FR0000073272 | Safran (EURO STOXX 50)                                            | Luftfahrtzulieferer & Verteidigung
 120 | FR0000125007 | Saint-Gobain (EURO STOXX 50)                                      | Baustoffe & Glasherstellung
