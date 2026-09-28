@@ -353,7 +353,7 @@ function erzeugeKursinfoSeite(): void
     $trefferHtml = '';
     foreach ($treffer as $eintrag) {
         $branche = $aktienNachIsin[$eintrag['isin']]['branche'] ?? 'keine Angabe';
-        $trefferHtml .= '<div class="result"><strong>' . html($eintrag['bezeichnung']) . '</strong><span>' . html($branche) . '</span><span>' . html($eintrag['isin']) . '</span><small>MaxDiffStab: ' . html($eintrag['diff']) . ' | MaxAbfall: ' . html($eintrag['abfall']) . '</small>' . erzeugeNachrichtenHtml($newsFuer($eintrag['isin'])) . '</div>';
+        $trefferHtml .= '<div class="result"><strong><a class="stock-link" href="#chart-' . html($eintrag['isin']) . '">' . html($eintrag['bezeichnung']) . '</a></strong><span>' . html($branche) . '</span><span>' . html($eintrag['isin']) . '</span><small>MaxDiffStab: ' . html($eintrag['diff']) . ' | MaxAbfall: ' . html($eintrag['abfall']) . '</small>' . erzeugeNachrichtenHtml($newsFuer($eintrag['isin'])) . '</div>';
     }
     if ($trefferHtml === '') {
         $trefferHtml = '<p class="empty">Keine Treffer aus dem letzten Analyse-Durchlauf.</p>';
@@ -361,7 +361,14 @@ function erzeugeKursinfoSeite(): void
 
     $statistikHtml = '';
     foreach ($statistik as $eintrag) {
-        $statistikHtml .= '<div class="stat"><strong>' . html($eintrag['kennzahl']) . '</strong><span>' . html($eintrag['wert']) . '</span>' . ($eintrag['aktie'] !== '' ? '<small>' . html($eintrag['aktie']) . '</small>' : '');
+        $aktieHtml = '';
+        if ($eintrag['aktie'] !== '') {
+            $aktieHtml = '<small>' . html($eintrag['aktie']) . '</small>';
+            if (preg_match('/^([A-Z0-9]{12})\s*\((.*)\)$/', $eintrag['aktie'], $match) === 1) {
+                $aktieHtml = '<small><a class="stock-link" href="#chart-' . html($match[1]) . '">' . html($eintrag['aktie']) . '</a></small>';
+            }
+        }
+        $statistikHtml .= '<div class="stat"><strong>' . html($eintrag['kennzahl']) . '</strong><span>' . html($eintrag['wert']) . '</span>' . $aktieHtml;
         if (preg_match('/^([A-Z0-9]{12})\s*\((.*)\)$/', $eintrag['aktie'], $match) === 1) {
             $statistikHtml .= erzeugeNachrichtenHtml($newsFuerAktie([
                 'isin' => $match[1],
@@ -504,7 +511,7 @@ select { min-width: 160px; padding: 11px 34px 11px 12px; border: 1px solid var(-
 .filters { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; }
 .overview { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; } article { min-height: 190px; padding: 22px; border: 1px solid var(--line); border-top: 4px solid var(--accent); background: var(--panel); box-shadow: 0 10px 30px rgba(23,34,31,.05); }
 .timestamp, .empty, .result span, .result small, .stat span, .stat small, #chartCount { color: var(--muted); font: 12px/1.5 Arial, sans-serif; } .timestamp { margin: 7px 0 16px; }
-.result, .stat { display: grid; gap: 4px; padding: 11px 0; border-top: 1px solid var(--line); } .result strong, .stat strong { font-size: 16px; } .result small, .stat small { word-break: break-word; }
+.result, .stat { display: grid; gap: 4px; padding: 11px 0; border-top: 1px solid var(--line); } .result strong, .stat strong { font-size: 16px; } .result small, .stat small { word-break: break-word; } .stock-link { color: inherit; text-decoration: none; } .stock-link:hover { color: var(--accent); text-decoration: underline; }
 .news { display: grid; gap: 4px; margin: 4px 0 0; padding: 0; list-style: none; } .news li { display: grid; gap: 1px; padding-left: 12px; border-left: 2px solid var(--accent-soft); } .news a { color: var(--ink); font: 13px/1.3 Arial, sans-serif; text-decoration: none; } .news a:hover { color: var(--accent); } .news small, .news-empty { font: 10px Arial, sans-serif; color: var(--muted); } .news-empty { margin: 4px 0 0; }
 hr { margin: 38px 0 28px; border: 0; border-top: 1px solid var(--line); } .chart-heading { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; } .charts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
 .chart { min-width: 0; padding: 14px; border: 1px solid var(--line); background: rgba(255,255,255,.78); } .chart h3 { overflow: hidden; margin: 0 0 2px; font-size: 15px; font-weight: 400; text-overflow: ellipsis; white-space: nowrap; } .chart p { margin: 0 0 8px; color: var(--muted); font: 10px Arial, sans-serif; } svg { display: block; width: 100%; height: 150px; overflow: visible; } .gridline { stroke: #e8eeea; stroke-width: 1; } .axis { stroke: #9ca9a3; stroke-width: 1; } .axis-label { fill: var(--muted); font: 9px Arial, sans-serif; } .line { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; } .no-data { display: grid; place-items: center; height: 150px; color: var(--muted); font: 12px Arial, sans-serif; }
@@ -537,7 +544,7 @@ function renderCharts() {
     visibleSeries.forEach((item) => {
         const values = item.werte.filter((point) => !cutoff || Date.parse(point.zeit.replace(' ', 'T')) >= cutoff);
         const card = document.createElement('article');
-        card.className = 'chart';
+        card.className = 'chart'; card.id = `chart-${item.isin}`;
         const title = document.createElement('h3'); title.textContent = item.name; card.append(title);
         const industry = document.createElement('p'); industry.textContent = item.branche; card.append(industry);
         const subtitle = document.createElement('p'); subtitle.textContent = item.isin; card.append(subtitle);

@@ -61,7 +61,7 @@ Nr. | ISIN         | Bezeichnung des Wertpapiers                                
 59  | DE0005785604 | Fresenius Medical Care (SDAX)                                     | Medizintechnik (Dialyse)
 60  | DE000KGX8881 | GEA Group AG (DAX)                                                | Maschinen- und Anlagenbau
 61  | GB00BL6K5285 | Glencore (STOXX Europe 50)                                        | Rohstoffhandel & Bergbau
-62  | US3802371010 | GoDaddy Inc. (USA Mittelgroß (S&P 400))                           | Internet-Dienstleistungen (Webhosting)
+62  | US3802371076 | GoDaddy Rg-A                                                      | Internet-Dienstleistungen
 63  | US38141G1040 | Goldman Sachs Group Inc. (Dow Jones)                              | Investmentbanking & Finanzdienstleistungen
 64  | US3841091040 | Graco Inc. (USA Mittelgroß (S&P 400))                             | Maschinenbau (Flüssigkeitshandhabung)
 65  | DE0008402215 | Hannover Rück SE (MDAX)                                           | Rückversicherungen
