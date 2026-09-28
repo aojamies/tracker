@@ -90,7 +90,7 @@ Nr. | ISIN         | Bezeichnung des Wertpapiers                                
 88  | AU000000MQG1 | Macquarie Group Ltd. (Australien (ASX 200))                       | Finanzdienstleistungen & Investmentbanking
 89  | US57636Q1040 | Mastercard Inc. (Dow Jones)                                       | Finanztechnologie (Zahlungsnetzwerke)
 90  | US5801351017 | McDonald's Corp. (Dow Jones)                                      | Systemgastronomie / Fast Food
-91  | KYG5966A1014 | Meituan (Hong Kong (Hang Seng))                                   | E-Commerce & On-Demand-Dienste
+91  | KYG596691041 | Meituan                                                           | E-Commerce
 92  | DE0007100000 | Mercedes-Benz Group (DAX / EURO STOXX 50)                         | Automobilindustrie
 93  | DE000BFB0019 | Metro AG (SDAX)                                                   | Großhandel / Lebensmittel
 94  | US5949181045 | Microsoft (Dow Jones)                                             | Software & Cloud-Computing
