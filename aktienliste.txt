@@ -4,7 +4,7 @@ Nr. | ISIN         | Bezeichnung des Wertpapiers                                
 2   | DE000A1EWWW0 | Adidas (DAX / EURO STOXX 50)                                      | Sportartikel & Bekleidung
 3   | NL0012969182 | Adyen (EURO STOXX 50)                                             | Finanztechnologie (Zahlungsabwicklung)
 4   | NL0011794037 | Ahold Delhaize (EURO STOXX 50)                                    | Lebensmitteleinzelhandel
-5   | HK0000069689 | AIA Group Ltd. (Hong Kong (Hang Seng))                            | Versicherungen
+5   | HK0000069689 | AIA Group Ltd. (Hong Kong (Hang Seng))                            | Lebensversicherung
 6   | FR0000120073 | Air Liquide (EURO STOXX 50)                                       | Spezialgase & Chemie
 7   | NL0000235190 | Airbus (DAX / EURO STOXX 50)                                      | Luft- und Raumfahrt / Verteidigung
 8   | CH0432492467 | Alcon (STOXX Europe 50)                                           | Medizintechnik (Augenheilkunde)
@@ -21,151 +21,156 @@ Nr. | ISIN         | Bezeichnung des Wertpapiers                                
 19  | FR0000120628 | AXA (EURO STOXX 50)                                               | Versicherungen
 20  | ES0113211835 | Banco Bilbao Vizcaya Argentaria (EURO STOXX 50)                   | Banken & Finanzdienstleistungen
 21  | ES0113900J37 | Banco Santander (EURO STOXX 50)                                   | Banken & Finanzdienstleistungen
-22  | DE000BASF111 | BASF SE (DAX / EURO STOXX 50)                                     | Chemieindustrie
-23  | DE000BAY0017 | Bayer AG (DAX / EURO STOXX 50)                                    | Pharma & Agrarchemie
-24  | DE0005200000 | Beiersdorf AG (SDAX)                                              | Konsumgüter & Kosmetik
-25  | AU000000BHP4 | BHP Group Ltd. (Australien (ASX 200))                             | Bergbau & Rohstoffe
-26  | FI0009011704 | Bittium Oyj                                                       | Teknologia (Kommunikaatioratkaisut)
-27  | DE0005190003 | BMW AG (DAX / EURO STOXX 50)                                      | Automobilindustrie
-28  | FR0000131104 | BNP Paribas (EURO STOXX 50)                                       | Banken & Finanzdienstleistungen
-29  | US0970231058 | Boeing Company (Dow Jones)                                        | Luft- und Raumfahrt / Verteidigung
-30  | GB0007980591 | BP (STOXX Europe 50)                                              | Öl & Gas / Energie
-31  | DE0006983008 | Brenntag SE (DAX)                                                 | Chemiedistribution
-32  | CA11271J1075 | Brookfield Rg-A                                                   | Investment
-33  | US1491231015 | Caterpillar Inc. (Dow Jones)                                      | Baumaschinen & Schwerindustrie
-34  | DE000CEG1111 | Ceconomy AG (SDAX)                                                | Elektronikeinzelhandel
-35  | CNE1000002H1 | China Construction Bank Corp. (Hong Kong (Hang Seng))             | Banken
-36  | HK0002007356 | CLP Holdings Ltd. (Hong Kong (Hang Seng))                         | Energieversorgung
-37  | DE000CBK1001 | Commerzbank AG (DAX)                                              | Banken
-38  | AU000000CBA7 | Commonwealth Bank of Australia (Australien (ASX 200))             | Banken
-39  | DE0005439004 | Continental AG (DAX)                                              | Automobilzulieferer & Reifen
-40  | AU000000CSL8 | CSL Ltd. (Australien (ASX 200))                                   | Biotechnologie & Pharma (Blutplasma)
-41  | FR0000120644 | Danone (EURO STOXX 50)                                            | Lebensmittelindustrie
-42  | US2435371073 | Deckers Outdoor Corp. (USA Mittelgroß (S&P 400))                  | Schuhe & Bekleidung
-43  | DE000A2E4K43 | Delivery Hero SE (MDAX)                                           | Online-Essenslieferdienst
-44  | US2473617023 | Delta Air Lines Inc. (Dow Jones)                                  | Fluggesellschaften
-45  | DE0005140008 | Deutsche Bank (DAX / EURO STOXX 50)                               | Banken & Finanzdienstleistungen
-46  | DE0005810055 | Deutsche Börse AG (DAX / EURO STOXX 50)                           | Finanzdienstleistungen (Börsenbetreiber)
-47  | DE0005557508 | Deutsche Telekom (DAX)                                            | Telekommunikation
-48  | DE0006305006 | Deutz AG (SDAX)                                                   | Maschinenbau / Motorenproduktion
-49  | DE0005552004 | DHL Group (DAX / EURO STOXX 50)                                   | Logistik & Transport
-50  | GB0002374006 | Diageo (STOXX Europe 50)                                          | Spirituosen & Getränke
-51  | DE000EONGB04 | E.ON SE (DAX)                                                     | Energieversorgung (Netze & Vertrieb)
-52  | IT0003128367 | Enel (EURO STOXX 50)                                              | Energieversorgung
-53  | IT0003132476 | ENI (EURO STOXX 50)                                               | Öl & Gas / Energie
-54  | FR0000121667 | EssilorLuxottica (EURO STOXX 50)                                  | Optik & Brillenherstellung
-55  | DE000EVNK013 | Evonik Industries AG (MDAX)                                       | Spezialchemie
-56  | JP3802300008 | Fast Retailing Co. Ltd. (Tokio (Nikkei 225))                      | Bekleidungseinzelhandel (z.B. Uniqlo)
-57  | NL0011585146 | Ferrari (EURO STOXX 50)                                           | Automobilindustrie (Luxus-Sportwagen)
-58  | FI4000567029 | Finnair Oyj                                                       | Fluggesellschaften
-59  | IE00BWT6H894 | Flutter Entertainment (EURO STOXX 50)                             | Glücksspiel & Sportwetten
-60  | FI0009007132 | Fortum Oyj                                                        | Utilities / Energiantuotanto
-61  | DE000A0Z2ZZ5 | Freenet AG (SDAX)                                                 | Telekommunikation
-62  | DE0005785604 | Fresenius Medical Care (SDAX)                                     | Medizintechnik (Dialyse)
-63  | DE000KGX8881 | GEA Group AG (DAX)                                                | Maschinen- und Anlagenbau
-64  | GB00BL6K5285 | Glencore (STOXX Europe 50)                                        | Rohstoffhandel & Bergbau
-65  | US3802371076 | GoDaddy Rg-A                                                      | Internet-Dienstleistungen
-66  | US38141G1040 | Goldman Sachs Group Inc. (Dow Jones)                              | Investmentbanking & Finanzdienstleistungen
-67  | US3841091040 | Graco Inc. (USA Mittelgroß (S&P 400))                             | Maschinenbau (Flüssigkeitshandhabung)
-68  | DE0008402215 | Hannover Rück SE (MDAX)                                           | Rückversicherungen
-69  | DE0006047004 | Heidelberg Materials AG (DAX)                                     | Baustoffe & Zement
-70  | DE000A161408 | HelloFresh SE (MDAX)                                              | Lebensmittel-Kochboxen
-71  | FR0000052292 | Hermes International (EURO STOXX 50)                              | Luxusgüter
-72  | HK0388045442 | Hong Kong Exchanges & Clearing Ltd. (Hong Kong (Hang Seng))       | Finanzdienstleistungen (Börsenbetreiber)
-73  | DE000A1PHFF7 | Hugo Boss AG (MDAX)                                               | Bekleidung & Mode
-74  | FI0009000459 | Huhtamäki Oyj                                                     | Materiaalit / Pakkausteollisuus
-75  | ES0144580Y14 | Iberdrola (EURO STOXX 50)                                         | Energieversorgung
-76  | ES0148396007 | Inditex (EURO STOXX 50)                                           | Bekleidungseinzelhandel (z.B. Zara)
-77  | DE0006231004 | Infineon Technologies AG (DAX / EURO STOXX 50)                    | Halbleiterindustrie
-78  | NL0011821202 | ING Groep (EURO STOXX 50)                                         | Banken & Finanzdienstleistungen
-79  | IT0000072618 | Intesa Sanpaolo (EURO STOXX 50)                                   | Banken
-80  | US46625H1005 | JPMorgan Chase & Co. (Dow Jones)                                  | Banken & Finanzdienstleistungen
-81  | FR0000121485 | Kering (EURO STOXX 50)                                            | Luxusgüter
-82  | JP3236200006 | Keyence Corp. (Tokio (Nikkei 225))                                | Automatisierungstechnik & Sensorik
-83  | DE000A1YDEX1 | Kion Group AG (SDAX)                                              | Maschinenbau (Flurförderzeuge & Logistik)
-84  | DE000KBX1006 | Knorr-Bremse AG (MDAX)                                            | Maschinenbau (Bremssysteme)
-85  | FI0009013403 | KONE Oyj                                                          | Teollisuus / Koneet ja laitteet
-86  | FR0000120321 | L'Oréal (EURO STOXX 50)                                           | Kosmetik & Konsumgüter
-87  | DE0006083405 | Lanxess AG (MDAX)                                                 | Spezialchemie
-88  | DE000LEG1110 | LEG Immobilien SE (MDAX)                                          | Immobilien
-89  | US53227V1008 | Light & Wonder, Inc. (USA Mittelgroß (S&P 400))                   | Glücksspieltechnologie & Spiele
-90  | IE000S9YS762 | Linde AG                                                          | Chemie
-91  | DE0008232125 | Lufthansa AG (MDAX)                                               | Fluggesellschaften
-92  | FI4000312985 | Lumo Kodit Oyj                                                    | Kiinteistöala / Asuntosijoittaminen
-93  | FR0000121014 | LVMH Moët Hennessy Louis Vuitton (EURO STOXX 50 / STOXX Europe 50)| Luxusgüter
-94  | AU000000MQG1 | Macquarie Group Ltd. (Australien (ASX 200))                       | Finanzdienstleistungen & Investmentbanking
-95  | FI4000515322 | Mandatum Oyj                                                      | Finanssi / Varainhoito ja henkivakuutus
-96  | US57636Q1040 | Mastercard Inc. (Dow Jones)                                       | Finanztechnologie (Zahlungsnetzwerke)
-97  | US5801351017 | McDonald's Corp. (Dow Jones)                                      | Systemgastronomie / Fast Food
-98  | KYG596691041 | Meituan                                                           | E-Commerce
-99  | DE0007100000 | Mercedes-Benz Group (DAX / EURO STOXX 50)                         | Automobilindustrie
-100 | DE000BFB0019 | Metro AG (SDAX)                                                   | Großhandel / Lebensmittel
-101 | FI4000076650 | Metso Oyj                                                         | Teollisuus / Kaivos- ja kivenmurskausteknologia
-102 | US5949181045 | Microsoft (Dow Jones)                                             | Software & Cloud-Computing
-103 | JP3496400007 | Mitsubishi UFJ Financial Group (Tokio (Nikkei 225))               | Banken & Finanzdienstleistungen
-104 | DE000A0D9PT0 | MTU Aero Engines (DAX)                                            | Luftfahrtzulieferer (Triebwerke)
-105 | DE0008430026 | Münchener Rückversicherungs-Gesellschaft (DAX / EURO STOXX 50)    | Rückversicherungen
-106 | AU000000NAB4 | National Australia Bank Ltd. (Australien (ASX 200))               | Banken
-107 | FI0009013296 | Neste Oyj                                                         | Energia / Uusiutuvat polttoaineet ja öljynjalostus
-108 | CH0038863350 | Nestlé (STOXX Europe 50)                                          | Lebensmittelindustrie
-109 | US6541061031 | Nike Inc. (Dow Jones)                                             | Sportartikel & Bekleidung
-110 | FI0009000681 | Nokia (EURO STOXX 50)                                             | Telekommunikationsausrüstung
-111 | FI4000297767 | Nordea Bank (EURO STOXX 50)                                       | Banken & Finanzdienstleistungen
-112 | CH0012005267 | Novartis (STOXX Europe 50)                                        | Pharma
-113 | DK0062498110 | Novo Nordisk (STOXX Europe 50)                                    | Pharma & Biotechnologie (Diabetes)
-114 | US67066G1040 | NVIDIA (Dow Jones)                                                | Halbleiterindustrie (Grafikprozessoren/KI)
-115 | FI0009002422 | Outokumpu Oyj                                                     | Perusteollisuus / Teräksenvalmistus
-116 | FR0000120693 | Pernod Ricard (EURO STOXX 50)                                     | Spirituosen & Wein
-117 | DE000PAG9113 | Porsche AG Vz (DAX)                                               | Automobilindustrie (Sportwagen)
-118 | DE000PAH0038 | Porsche Automobil Holding (DAX)                                   | Beteiligungsgesellschaft (Automobil)
-119 | DE0006223407 | ProCredit                                                         | Banken
-120 | US7427181094 | Procter & Gamble Co. (Dow Jones)                                  | Konsumgüter
-121 | NL0013654783 | Prosus (EURO STOXX 50)                                            | Beteiligungsgesellschaft (Internet & Tech)
-122 | DE0006969603 | Puma SE (MDAX)                                                    | Sportartikel & Bekleidung
-123 | FI4000198033 | Qt Group Oyj                                                      | Teknologia / Ohjelmistokehitys
-124 | US7594701077 | Reliance, Inc. (USA Mittelgroß (S&P 400))                         | Metallverarbeitung & Metalldistribution
-125 | DE0007030009 | Rheinmetall AG (DAX)                                              | Rüstungsindustrie & Automobilzulieferer
-126 | GB0007188757 | Rio Tinto PLC                                                     | Bergbau und Rohstoffe
-127 | CH1499059983 | Roche Holding (ROP)                                               | Pharma
-128 | DE0007037129 | RWE AG (DAX)                                                      | Energieversorgung / Erneuerbare Energien
-129 | FR0000073272 | Safran (EURO STOXX 50)                                            | Luftfahrtzulieferer & Verteidigung
-130 | FR0000125007 | Saint-Gobain (EURO STOXX 50)                                      | Baustoffe & Glasherstellung
-131 | DE0006202005 | Salzgitter AG (SDAX)                                              | Stahlindustrie
-132 | FR0000120578 | Sanofi (EURO STOXX 50 / STOXX Europe 50)                          | Pharma
-133 | DE0007164600 | SAP (DAX / EURO STOXX 50 / STOXX Europe 50)                       | Software & IT-Dienstleistungen
-134 | DE000SHA0159 | Schaeffler AG (MDAX)                                              | Automobil- & Industriezulieferer
-135 | FR0000121972 | Schneider Electric (EURO STOXX 50)                                | Energiemanagement & Automatisierung
-136 | DE000A2G8X31 | Serviceware I                                                     | IT-Dienstleistungen
-137 | DE0007568578 | SFC Energy AG (SDAX)                                              | Brennstoffzellen & Energielösungen
-138 | GB00BP6MXD84 | Shell (STOXX Europe 50)                                           | Öl & Gas / Energie
-139 | JP3371200001 | Shin-Etsu Chemical Co. Ltd. (Tokio (Nikkei 225))                  | Chemieindustrie (Silizium/Halbleitermaterialien)
-140 | DE0007236101 | Siemens (DAX / EURO STOXX 50 / STOXX Europe 50)                   | Technologie & Mischkonzern (Industrie/Infrastruktur)
-141 | DE000ENER6Y0 | Siemens Energy AG (DAX)                                           | Energietechnik & Kraftwerksbau
-142 | DE000SHL1006 | Siemens Healthineers AG (DAX)                                     | Medizintechnik
-143 | JP3436100006 | SoftBank                                                          | Investment
-144 | JP3435000009 | Sony Group Corp. (Tokio (Nikkei 225))                             | Unterhaltungs- & Elektronikkonzern
-145 | SE0000171100 | SSAB AB (B)                                                       | Perusteollisuus / Teräksenvalmistus
-146 | FI0009005961 | Stora Enso Oyj (R)                                                | Materiaalit / Metsä- ja paperiteollisuus
-147 | DE0006749705 | Stroeer SE & Co KGaA (MDAX)                                       | Außenwerbung & Medien
-148 | US86800U3023 | Super Micro Computer                                              | IT, AI, Server-Technologie
-149 | DE000SYM9999 | Symrise AG (DAX)                                                  | Duftstoffe & Aromen
-150 | DE000A1K0235 | Süss MicroTec SE (SDAX)                                           | Halbleiterindustrie (Anlagenbau)
-151 | DE000TEAM111 | TeamViewer SE (MDAX)                                              | Software (Fernwartung & Konnektivität)
-152 | KYG875721634 | Tencent Holdings Ltd. (Hong Kong (Hang Seng))                     | Internet, Gaming & Technologie
-153 | US1912161007 | The Coca-Cola Company (Dow Jones)                                 | Getränkeindustrie
-154 | US4370761029 | The Home Depot Inc. (Dow Jones)                                   | Baumarktkette / Einzelhandel
-155 | FI0009000277 | Tietoevry Oyj                                                     | Teknologia / IT-palvelut
-156 | FR0000120271 | TotalEnergies SE (EURO STOXX 50 / STOXX Europe 50)                | Öl & Gas / Energie
-157 | JP3633400001 | Toyota Motor Corp. (Tokio (Nikkei 225))                           | Automobilindustrie
-158 | DE000A3H2101 | Traton SE (MDAX)                                                  | Nutzfahrzeuge (Lkw & Busse)
-159 | DE0005089031 | United Internet AG (MDAX)                                         | Telekommunikation & Internetdienstleistungen
-160 | US91324P1021 | UnitedHealth Group Inc. (Dow Jones)                               | Gesundheitsdienstleistungen & Krankenversicherung
-161 | FI0009005987 | UPM-Kymmene Oyj                                                   | Materiaalit / Metsä- ja paperiteollisuus
-162 | FI4000074986 | Valmet Oyj                                                        | Teollisuus / Prosessiteknologia, -automaatio ja palvelut
-163 | US92532F1003 | Vertex Pharmaceuticals (Dow Jones)                                | Biotechnologie & Pharma
-164 | US92826C8394 | Visa Inc. (Dow Jones)                                             | Finanztechnologie (Zahlungsnetzwerke)
-165 | DE000A1ML7J1 | Vonovia SE (DAX)                                                  | Immobilien
-166 | DE000WCH8881 | Wacker Chemie AG (MDAX)                                           | Chemieindustrie
-167 | AU000000WBC1 | Westpac Banking Corp. (Australien (ASX 200))                      | Banken
-168 | US98419M1009 | Xylem Inc. (USA Mittelgroß (S&P 400))                             | Wassertechnologie
-169 | DE000ZAL1111 | Zalando SE (DAX)                                                  | Online-Modehandel
+22  | CA06849F1080 | Barrick Mining                                                    | Bergbau und Rohstoffe
+23  | DE000BASF111 | BASF SE (DAX / EURO STOXX 50)                                     | Chemieindustrie
+24  | DE000BAY0017 | Bayer AG (DAX / EURO STOXX 50)                                    | Pharma & Agrarchemie
+25  | DE0005200000 | Beiersdorf AG (SDAX)                                              | Konsumgüter & Kosmetik
+26  | AU000000BHP4 | BHP Group Ltd. (Australien (ASX 200))                             | Bergbau & Rohstoffe
+27  | FI0009011704 | Bittium Oyj                                                       | Teknologia (Kommunikaatioratkaisut)
+28  | DE0005190003 | BMW AG (DAX / EURO STOXX 50)                                      | Automobilindustrie
+29  | FR0000131104 | BNP Paribas (EURO STOXX 50)                                       | Banken & Finanzdienstleistungen
+30  | US0970231058 | Boeing Company (Dow Jones)                                        | Luft- und Raumfahrt / Verteidigung
+31  | GB0007980591 | BP (STOXX Europe 50)                                              | Öl & Gas / Energie
+32  | DE0006983008 | Brenntag SE (DAX)                                                 | Chemiedistribution
+33  | CA11271J1075 | Brookfield Rg-A                                                   | Investment
+34  | US1491231015 | Caterpillar Inc. (Dow Jones)                                      | Baumaschinen & Schwerindustrie
+35  | DE000CEG1111 | Ceconomy AG (SDAX)                                                | Elektronikeinzelhandel
+36  | CNE1000002H1 | China Construction Bank Corp. (Hong Kong (Hang Seng))             | Banken
+37  | CNE1000002L3 | China Life Insurance Co. Ltd.                                     | Lebensversicherung
+38  | HK0002007356 | CLP Holdings Ltd. (Hong Kong (Hang Seng))                         | Energieversorgung
+39  | DE000CBK1001 | Commerzbank AG (DAX)                                              | Banken
+40  | AU000000CBA7 | Commonwealth Bank of Australia (Australien (ASX 200))             | Banken
+41  | DE0005439004 | Continental AG (DAX)                                              | Automobilzulieferer & Reifen
+42  | AU000000CSL8 | CSL Ltd. (Australien (ASX 200))                                   | Biotechnologie & Pharma (Blutplasma)
+43  | FR0000120644 | Danone (EURO STOXX 50)                                            | Lebensmittelindustrie
+44  | US2435371073 | Deckers Outdoor Corp. (USA Mittelgroß (S&P 400))                  | Schuhe & Bekleidung
+45  | DE000A2E4K43 | Delivery Hero SE (MDAX)                                           | Online-Essenslieferdienst
+46  | US2473617023 | Delta Air Lines Inc. (Dow Jones)                                  | Fluggesellschaften
+47  | DE0005140008 | Deutsche Bank (DAX / EURO STOXX 50)                               | Banken & Finanzdienstleistungen
+48  | DE0005810055 | Deutsche Börse AG (DAX / EURO STOXX 50)                           | Finanzdienstleistungen (Börsenbetreiber)
+49  | DE0005557508 | Deutsche Telekom (DAX)                                            | Telekommunikation
+50  | DE0006305006 | Deutz AG (SDAX)                                                   | Maschinenbau / Motorenproduktion
+51  | DE0005552004 | DHL Group (DAX / EURO STOXX 50)                                   | Logistik & Transport
+52  | GB0002374006 | Diageo (STOXX Europe 50)                                          | Spirituosen & Getränke
+53  | DE000EONGB04 | E.ON SE (DAX)                                                     | Energieversorgung (Netze & Vertrieb)
+54  | IT0003128367 | Enel (EURO STOXX 50)                                              | Energieversorgung
+55  | IT0003132476 | ENI (EURO STOXX 50)                                               | Öl & Gas / Energie
+56  | FR0000121667 | EssilorLuxottica (EURO STOXX 50)                                  | Optik & Brillenherstellung
+57  | DE000EVNK013 | Evonik Industries AG (MDAX)                                       | Spezialchemie
+58  | JP3802300008 | Fast Retailing Co. Ltd. (Tokio (Nikkei 225))                      | Bekleidungseinzelhandel (z.B. Uniqlo)
+59  | NL0011585146 | Ferrari (EURO STOXX 50)                                           | Automobilindustrie (Luxus-Sportwagen)
+60  | FI4000567029 | Finnair Oyj                                                       | Fluggesellschaften
+61  | IE00BWT6H894 | Flutter Entertainment (EURO STOXX 50)                             | Glücksspiel & Sportwetten
+62  | FI0009007132 | Fortum Oyj                                                        | Utilities / Energiantuotanto
+63  | DE000A0Z2ZZ5 | Freenet AG (SDAX)                                                 | Telekommunikation
+64  | DE0005785604 | Fresenius Medical Care (SDAX)                                     | Medizintechnik (Dialyse)
+65  | DE000KGX8881 | GEA Group AG (DAX)                                                | Maschinen- und Anlagenbau
+66  | GB00BL6K5285 | Glencore (STOXX Europe 50)                                        | Rohstoffhandel & Bergbau
+67  | US3802371076 | GoDaddy Rg-A                                                      | Internet-Dienstleistungen
+68  | US38141G1040 | Goldman Sachs Group Inc. (Dow Jones)                              | Investmentbanking & Finanzdienstleistungen
+69  | US3841091040 | Graco Inc. (USA Mittelgroß (S&P 400))                             | Maschinenbau (Flüssigkeitshandhabung)
+70  | DE0008402215 | Hannover Rück SE (MDAX)                                           | Rückversicherungen
+71  | DE0006047004 | Heidelberg Materials AG (DAX)                                     | Baustoffe & Zement
+72  | DE000A161408 | HelloFresh SE (MDAX)                                              | Lebensmittel-Kochboxen
+73  | FR0000052292 | Hermes International (EURO STOXX 50)                              | Luxusgüter
+74  | HK0388045442 | Hong Kong Exchanges & Clearing Ltd. (Hong Kong (Hang Seng))       | Finanzdienstleistungen (Börsenbetreiber)
+75  | DE000A1PHFF7 | Hugo Boss AG (MDAX)                                               | Bekleidung & Mode
+76  | FI0009000459 | Huhtamäki Oyj                                                     | Materiaalit / Pakkausteollisuus
+77  | ES0144580Y14 | Iberdrola (EURO STOXX 50)                                         | Energieversorgung
+78  | ES0148396007 | Inditex (EURO STOXX 50)                                           | Bekleidungseinzelhandel (z.B. Zara)
+79  | DE0006231004 | Infineon Technologies AG (DAX / EURO STOXX 50)                    | Halbleiterindustrie
+80  | NL0011821202 | ING Groep (EURO STOXX 50)                                         | Banken & Finanzdienstleistungen
+81  | IT0000072618 | Intesa Sanpaolo (EURO STOXX 50)                                   | Banken
+82  | US46625H1005 | JPMorgan Chase & Co. (Dow Jones)                                  | Banken & Finanzdienstleistungen
+83  | FR0000121485 | Kering (EURO STOXX 50)                                            | Luxusgüter
+84  | JP3236200006 | Keyence Corp. (Tokio (Nikkei 225))                                | Automatisierungstechnik & Sensorik
+85  | DE000A1YDEX1 | Kion Group AG (SDAX)                                              | Maschinenbau (Flurförderzeuge & Logistik)
+86  | DE000KBX1006 | Knorr-Bremse AG (MDAX)                                            | Maschinenbau (Bremssysteme)
+87  | FI0009013403 | KONE Oyj                                                          | Teollisuus / Koneet ja laitteet
+88  | FR0000120321 | L'Oréal (EURO STOXX 50)                                           | Kosmetik & Konsumgüter
+89  | DE0006083405 | Lanxess AG (MDAX)                                                 | Spezialchemie
+90  | DE000LEG1110 | LEG Immobilien SE (MDAX)                                          | Immobilien
+91  | US53227V1008 | Light & Wonder, Inc. (USA Mittelgroß (S&P 400))                   | Glücksspieltechnologie & Spiele
+92  | IE000S9YS762 | Linde AG                                                          | Chemie
+93  | DE0008232125 | Lufthansa AG (MDAX)                                               | Fluggesellschaften
+94  | FI4000312985 | Lumo Kodit Oyj                                                    | Kiinteistöala / Asuntosijoittaminen
+95  | FR0000121014 | LVMH Moët Hennessy Louis Vuitton (EURO STOXX 50 / STOXX Europe 50)| Luxusgüter
+96  | AU000000MQG1 | Macquarie Group Ltd. (Australien (ASX 200))                       | Finanzdienstleistungen & Investmentbanking
+97  | FI4000515322 | Mandatum Oyj                                                      | Finanssi / Varainhoito ja henkivakuutus
+98  | US57636Q1040 | Mastercard Inc. (Dow Jones)                                       | Finanztechnologie (Zahlungsnetzwerke)
+99  | US5801351017 | McDonald's Corp. (Dow Jones)                                      | Systemgastronomie / Fast Food
+100 | KYG596691041 | Meituan                                                           | E-Commerce
+101 | DE0007100000 | Mercedes-Benz Group (DAX / EURO STOXX 50)                         | Automobilindustrie
+102 | US59156R1086 | MetLife Inc.                                                      | Lebens- und Rentenversicherung
+103 | DE000BFB0019 | Metro AG (SDAX)                                                   | Großhandel / Lebensmittel
+104 | FI4000076650 | Metso Oyj                                                         | Teollisuus / Kaivos- ja kivenmurskausteknologia
+105 | US5949181045 | Microsoft (Dow Jones)                                             | Software & Cloud-Computing
+106 | JP3496400007 | Mitsubishi UFJ Financial Group (Tokio (Nikkei 225))               | Banken & Finanzdienstleistungen
+107 | DE000A0D9PT0 | MTU Aero Engines (DAX)                                            | Luftfahrtzulieferer (Triebwerke)
+108 | DE0008430026 | Münchener Rückversicherungs-Gesellschaft (DAX / EURO STOXX 50)    | Rückversicherungen
+109 | AU000000NAB4 | National Australia Bank Ltd. (Australien (ASX 200))               | Banken
+110 | FI0009013296 | Neste Oyj                                                         | Energia / Uusiutuvat polttoaineet ja öljynjalostus
+111 | CH0038863350 | Nestlé (STOXX Europe 50)                                          | Lebensmittelindustrie
+112 | US6516391066 | Newmont Corporation                                               | Bergbau und Rohstoffe
+113 | US6541061031 | Nike Inc. (Dow Jones)                                             | Sportartikel & Bekleidung
+114 | FI0009000681 | Nokia (EURO STOXX 50)                                             | Telekommunikationsausrüstung
+115 | FI4000297767 | Nordea Bank (EURO STOXX 50)                                       | Banken & Finanzdienstleistungen
+116 | CH0012005267 | Novartis (STOXX Europe 50)                                        | Pharma
+117 | DK0062498110 | Novo Nordisk (STOXX Europe 50)                                    | Pharma & Biotechnologie (Diabetes)
+118 | US67066G1040 | NVIDIA (Dow Jones)                                                | Halbleiterindustrie (Grafikprozessoren/KI)
+119 | FI0009002422 | Outokumpu Oyj                                                     | Perusteollisuus / Teräksenvalmistus
+120 | FR0000120693 | Pernod Ricard (EURO STOXX 50)                                     | Spirituosen & Wein
+121 | CNE1000003X6 | Ping An Insurance (Group) Co. of China Ltd.                       | Lebensversicherung
+122 | DE000PAG9113 | Porsche AG Vz (DAX)                                               | Automobilindustrie (Sportwagen)
+123 | DE000PAH0038 | Porsche Automobil Holding (DAX)                                   | Beteiligungsgesellschaft (Automobil)
+124 | DE0006223407 | ProCredit                                                         | Banken
+125 | US7427181094 | Procter & Gamble Co. (Dow Jones)                                  | Konsumgüter
+126 | NL0013654783 | Prosus (EURO STOXX 50)                                            | Beteiligungsgesellschaft (Internet & Tech)
+127 | DE0006969603 | Puma SE (MDAX)                                                    | Sportartikel & Bekleidung
+128 | FI4000198033 | Qt Group Oyj                                                      | Teknologia / Ohjelmistokehitys
+129 | US7594701077 | Reliance, Inc. (USA Mittelgroß (S&P 400))                         | Metallverarbeitung & Metalldistribution
+130 | DE0007030009 | Rheinmetall AG (DAX)                                              | Rüstungsindustrie & Automobilzulieferer
+131 | GB0007188757 | Rio Tinto PLC                                                     | Bergbau und Rohstoffe
+132 | CH1499059983 | Roche Holding (ROP)                                               | Pharma
+133 | DE0007037129 | RWE AG (DAX)                                                      | Energieversorgung / Erneuerbare Energien
+134 | FR0000073272 | Safran (EURO STOXX 50)                                            | Luftfahrtzulieferer & Verteidigung
+135 | FR0000125007 | Saint-Gobain (EURO STOXX 50)                                      | Baustoffe & Glasherstellung
+136 | DE0006202005 | Salzgitter AG (SDAX)                                              | Stahlindustrie
+137 | FR0000120578 | Sanofi (EURO STOXX 50 / STOXX Europe 50)                          | Pharma
+138 | DE0007164600 | SAP (DAX / EURO STOXX 50 / STOXX Europe 50)                       | Software & IT-Dienstleistungen
+139 | DE000SHA0159 | Schaeffler AG (MDAX)                                              | Automobil- & Industriezulieferer
+140 | FR0000121972 | Schneider Electric (EURO STOXX 50)                                | Energiemanagement & Automatisierung
+141 | DE000A2G8X31 | Serviceware I                                                     | IT-Dienstleistungen
+142 | DE0007568578 | SFC Energy AG (SDAX)                                              | Brennstoffzellen & Energielösungen
+143 | GB00BP6MXD84 | Shell (STOXX Europe 50)                                           | Öl & Gas / Energie
+144 | JP3371200001 | Shin-Etsu Chemical Co. Ltd. (Tokio (Nikkei 225))                  | Chemieindustrie (Silizium/Halbleitermaterialien)
+145 | DE0007236101 | Siemens (DAX / EURO STOXX 50 / STOXX Europe 50)                   | Technologie & Mischkonzern (Industrie/Infrastruktur)
+146 | DE000ENER6Y0 | Siemens Energy AG (DAX)                                           | Energietechnik & Kraftwerksbau
+147 | DE000SHL1006 | Siemens Healthineers AG (DAX)                                     | Medizintechnik
+148 | JP3436100006 | SoftBank                                                          | Investment
+149 | JP3435000009 | Sony Group Corp. (Tokio (Nikkei 225))                             | Unterhaltungs- & Elektronikkonzern
+150 | SE0000171100 | SSAB AB (B)                                                       | Perusteollisuus / Teräksenvalmistus
+151 | FI0009005961 | Stora Enso Oyj (R)                                                | Materiaalit / Metsä- ja paperiteollisuus
+152 | DE0006749705 | Stroeer SE & Co KGaA (MDAX)                                       | Außenwerbung & Medien
+153 | US86800U3023 | Super Micro Computer                                              | IT, AI, Server-Technologie
+154 | DE000SYM9999 | Symrise AG (DAX)                                                  | Duftstoffe & Aromen
+155 | DE000A1K0235 | Süss MicroTec SE (SDAX)                                           | Halbleiterindustrie (Anlagenbau)
+156 | DE000TEAM111 | TeamViewer SE (MDAX)                                              | Software (Fernwartung & Konnektivität)
+157 | KYG875721634 | Tencent Holdings Ltd. (Hong Kong (Hang Seng))                     | Internet, Gaming & Technologie
+158 | US1912161007 | The Coca-Cola Company (Dow Jones)                                 | Getränkeindustrie
+159 | US4370761029 | The Home Depot Inc. (Dow Jones)                                   | Baumarktkette / Einzelhandel
+160 | FI0009000277 | Tietoevry Oyj                                                     | Teknologia / IT-palvelut
+161 | FR0000120271 | TotalEnergies SE (EURO STOXX 50 / STOXX Europe 50)                | Öl & Gas / Energie
+162 | JP3633400001 | Toyota Motor Corp. (Tokio (Nikkei 225))                           | Automobilindustrie
+163 | DE000A3H2101 | Traton SE (MDAX)                                                  | Nutzfahrzeuge (Lkw & Busse)
+164 | DE0005089031 | United Internet AG (MDAX)                                         | Telekommunikation & Internetdienstleistungen
+165 | US91324P1021 | UnitedHealth Group Inc. (Dow Jones)                               | Gesundheitsdienstleistungen & Krankenversicherung
+166 | FI0009005987 | UPM-Kymmene Oyj                                                   | Materiaalit / Metsä- ja paperiteollisuus
+167 | FI4000074986 | Valmet Oyj                                                        | Teollisuus / Prosessiteknologia, -automaatio ja palvelut
+168 | US92532F1003 | Vertex Pharmaceuticals (Dow Jones)                                | Biotechnologie & Pharma
+169 | US92826C8394 | Visa Inc. (Dow Jones)                                             | Finanztechnologie (Zahlungsnetzwerke)
+170 | DE000A1ML7J1 | Vonovia SE (DAX)                                                  | Immobilien
+171 | DE000WCH8881 | Wacker Chemie AG (MDAX)                                           | Chemieindustrie
+172 | AU000000WBC1 | Westpac Banking Corp. (Australien (ASX 200))                      | Banken
+173 | US98419M1009 | Xylem Inc. (USA Mittelgroß (S&P 400))                             | Wassertechnologie
+174 | DE000ZAL1111 | Zalando SE (DAX)                                                  | Online-Modehandel
