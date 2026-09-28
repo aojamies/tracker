@@ -25,7 +25,7 @@ Nr. | ISIN         | Bezeichnung des Wertpapiers                                
 23  | DE000BASF111 | BASF SE (DAX / EURO STOXX 50)                                     | Chemieindustrie
 24  | DE000BAY0017 | Bayer AG (DAX / EURO STOXX 50)                                    | Pharma & Agrarchemie
 25  | DE0005200000 | Beiersdorf AG (SDAX)                                              | Konsumgüter & Kosmetik
-26  | AU000000BHP4 | BHP Group Ltd. (Australien (ASX 200))                             | Bergbau & Rohstoffe
+26  | AU000000BHP4 | BHP Group Ltd. (Australien (ASX 200))                             | Bergbau und Rohstoffe
 27  | FI0009011704 | Bittium Oyj                                                       | Teknologia (Kommunikaatioratkaisut)
 28  | DE0005190003 | BMW AG (DAX / EURO STOXX 50)                                      | Automobilindustrie
 29  | FR0000131104 | BNP Paribas (EURO STOXX 50)                                       | Banken & Finanzdienstleistungen
@@ -65,7 +65,7 @@ Nr. | ISIN         | Bezeichnung des Wertpapiers                                
 63  | DE000A0Z2ZZ5 | Freenet AG (SDAX)                                                 | Telekommunikation
 64  | DE0005785604 | Fresenius Medical Care (SDAX)                                     | Medizintechnik (Dialyse)
 65  | DE000KGX8881 | GEA Group AG (DAX)                                                | Maschinen- und Anlagenbau
-66  | GB00BL6K5285 | Glencore (STOXX Europe 50)                                        | Rohstoffhandel & Bergbau
+66  | GB00BL6K5285 | Glencore (STOXX Europe 50)                                        | Bergbau und Rohstoffe
 67  | US3802371076 | GoDaddy Rg-A                                                      | Internet-Dienstleistungen
 68  | US38141G1040 | Goldman Sachs Group Inc. (Dow Jones)                              | Investmentbanking & Finanzdienstleistungen
 69  | US3841091040 | Graco Inc. (USA Mittelgroß (S&P 400))                             | Maschinenbau (Flüssigkeitshandhabung)
