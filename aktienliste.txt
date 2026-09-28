@@ -134,7 +134,7 @@ Nr. | ISIN         | Bezeichnung des Wertpapiers                                
 132 | JP3436100006 | SoftBank                                                          | Investment
 133 | JP3435000009 | Sony Group Corp. (Tokio (Nikkei 225))                             | Unterhaltungs- & Elektronikkonzern
 134 | DE0006749705 | Stroeer SE & Co KGaA (MDAX)                                       | Außenwerbung & Medien
-135 | US86800U1043 | Super Micro Computer Inc. (USA Mittelgroß (S&P 400))              | Informationstechnologie (Server/Computerhardware)
+135 | US86800U3023 | Super Micro Computer                                              | IT, AI, Server-Technologie
 136 | DE000SYM9999 | Symrise AG (DAX)                                                  | Duftstoffe & Aromen
 137 | DE000A1K0235 | Süss MicroTec SE (SDAX)                                           | Halbleiterindustrie (Anlagenbau)
 138 | DE000TEAM111 | TeamViewer SE (MDAX)                                              | Software (Fernwartung & Konnektivität)
