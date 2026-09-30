@@ -602,8 +602,12 @@ function renderCharts() {
         const title = document.createElement('h3'); title.textContent = item.name; card.append(title);
         const industry = document.createElement('p'); industry.textContent = item.branche; card.append(industry);
         const unruhe = unruheNachIsin.get(item.isin) ?? null;
-        const subtitle = document.createElement('p'); subtitle.textContent = `${item.isin} · Unruhe: ${formatUnruhe(unruhe)}`;
-        subtitle.title = `Unruhe der letzten ${unruheFensterTage} Tage`;
+        const subtitle = document.createElement('p');
+        const trend = berechneTrend(values);
+        subtitle.textContent = `${item.isin} · Unruhe: ${formatUnruhe(unruhe)} · Trend: ${formatTrend(trend?.relativeSteigung ?? null)}`;
+        subtitle.title = trend
+            ? `Trend im Zeitfenster: y(t) = ${formatTrendParameter(trend.steigung)} · t + ${formatTrendParameter(trend.offset)}; t in Tagen seit dem ersten Messwert`
+            : 'Trend im Zeitfenster nicht bestimmbar';
         card.append(subtitle);
         if (!values.length) { const empty = document.createElement('div'); empty.className = 'no-data'; empty.textContent = 'Keine Werte im Zeitraum'; card.append(empty); container.append(card); return; }
         shown++;
@@ -656,8 +660,32 @@ function berechneUnruhe(values) {
     }
     return differenzSumme / mittelwert;
 }
+function berechneTrend(values) {
+    if (!values.length) return null;
+    const startzeit = Date.parse(values[0].zeit.replace(' ', 'T'));
+    const werte = values.map((point) => ({
+        t: (Date.parse(point.zeit.replace(' ', 'T')) - startzeit) / 86400000,
+        wert: point.wert,
+    }));
+    const mittelT = werte.reduce((sum, point) => sum + point.t, 0) / werte.length;
+    const mittelwert = werte.reduce((sum, point) => sum + point.wert, 0) / werte.length;
+    const quadratsummeT = werte.reduce((sum, point) => sum + (point.t - mittelT) ** 2, 0);
+    if (mittelwert <= 0 || quadratsummeT === 0) return null;
+    const steigung = werte.reduce((sum, point) => sum + (point.t - mittelT) * (point.wert - mittelwert), 0) / quadratsummeT;
+    const offset = mittelwert - steigung * mittelT;
+    return {steigung, offset, relativeSteigung: steigung / mittelwert};
+}
 function formatUnruhe(value) {
     return value === null ? 'n.v.' : value.toLocaleString('de-DE', {minimumFractionDigits: 4, maximumFractionDigits: 4});
+}
+function formatTrend(value) {
+    if (value === null) return 'n.v.';
+    const prozentProTag = value * 100;
+    const vorzeichen = prozentProTag > 0 ? '+' : '';
+    return `${vorzeichen}${prozentProTag.toLocaleString('de-DE', {minimumFractionDigits: 4, maximumFractionDigits: 4})} %/Tag`;
+}
+function formatTrendParameter(value) {
+    return Number(value).toLocaleString('de-DE', {maximumFractionDigits: 6});
 }
 function formatNumber(value) { return Number(value).toLocaleString('de-DE', {maximumFractionDigits: 2}); }
 axisLength.addEventListener('change', renderCharts); renderCharts();

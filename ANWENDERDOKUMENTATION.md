@@ -199,6 +199,8 @@ aller gültigen Kurse im Fenster.
 
 Darunter erscheinen alle Aktien aus `aktienliste.txt` in drei Spalten. Für Aktien ohne gültige Werte im ausgewählten Zeitraum wird eine leere Datenmeldung angezeigt. Mit `Maß der Unruhe` kann nach dem niedrigsten, mittleren oder höchsten Drittel der Aktien sortiert werden. Die Branchen- und Unruheauswahl schließen einander aus.
 
+Hinter der Unruhe wird der lineare Trend des gewählten Zeitfensters angezeigt. Er wird mit der Kleinste-Quadrate-Methode aus den Kurswerten gegen die verstrichene Zeit in Tagen bestimmt (`y(t) = m*t + b`). Angezeigt wird die relative Steigung `m / Mittelwert` als Prozent pro Tag; die Gleichung mit Steigung und Offset ist über den Tooltip der Kennzahl verfügbar. Bei weniger als zwei verschiedenen Messzeitpunkten oder einem nichtpositiven Mittelwert ist der Trend nicht verfügbar.
+
 ## Fehlerbehebung
 
 ### `Die PHP-Erweiterung cURL ist nicht aktiviert.`
