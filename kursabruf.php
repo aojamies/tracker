@@ -549,6 +549,22 @@ const axisLength = document.getElementById('axisLength');
 const industryFilter = document.getElementById('industryFilter');
 const unruheFilter = document.getElementById('unruheFilter');
 const trendLinesToggle = document.getElementById('trendLinesToggle');
+const chartSort = document.createElement('select');
+chartSort.id = 'chartSort';
+[
+    ['alphabetical', 'Alphabetisch'],
+    ['trend', 'Trend (höchster zuerst)'],
+    ['unruhe', 'Unruhe (niedrigste zuerst)'],
+].forEach(([value, text]) => {
+    const option = document.createElement('option');
+    option.value = value;
+    option.textContent = text;
+    chartSort.append(option);
+});
+const chartSortLabel = document.createElement('label');
+chartSortLabel.htmlFor = chartSort.id;
+chartSortLabel.append('Sortierung', chartSort);
+document.querySelector('.filters').append(chartSortLabel);
 axisLength.value = initialAxis;
 const industries = [...new Set(series.map((item) => item.branche).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'de'));
 industries.forEach((industry) => {
@@ -592,19 +608,28 @@ function renderCharts() {
     const selectedMeasure = unruheFilter.value;
     const visibleSeries = series.filter((item) => selectedMeasure
         ? unruheGruppen.get(item.isin) === selectedMeasure
-        : !selectedIndustries.length || selectedIndustries.includes(item.branche));
+        : !selectedIndustries.length || selectedIndustries.includes(item.branche))
+        .map((item) => {
+            const values = item.werte.filter((point) => !cutoff || Date.parse(point.zeit.replace(' ', 'T')) >= cutoff);
+            return {item, values, unruhe: unruheNachIsin.get(item.isin) ?? null, trend: berechneTrend(values)};
+        });
+    visibleSeries.sort((left, right) => {
+        const alphabetisch = left.item.name.localeCompare(right.item.name, 'de') || left.item.isin.localeCompare(right.item.isin);
+        if (chartSort.value === 'alphabetical') return alphabetisch;
+        const differenz = chartSort.value === 'trend'
+            ? (right.trend?.relativeSteigung ?? -Infinity) - (left.trend?.relativeSteigung ?? -Infinity)
+            : (left.unruhe ?? Infinity) - (right.unruhe ?? Infinity);
+        return Number.isNaN(differenz) || differenz === 0 ? alphabetisch : differenz;
+    });
     const container = document.getElementById('charts');
     container.replaceChildren();
     let shown = 0;
-    visibleSeries.forEach((item) => {
-        const values = item.werte.filter((point) => !cutoff || Date.parse(point.zeit.replace(' ', 'T')) >= cutoff);
+    visibleSeries.forEach(({item, values, unruhe, trend}) => {
         const card = document.createElement('article');
         card.className = 'chart'; card.id = `chart-${item.isin}`;
         const title = document.createElement('h3'); title.textContent = item.name; card.append(title);
         const industry = document.createElement('p'); industry.textContent = item.branche; card.append(industry);
-        const unruhe = unruheNachIsin.get(item.isin) ?? null;
         const subtitle = document.createElement('p');
-        const trend = berechneTrend(values);
         subtitle.textContent = `${item.isin} · Unruhe: ${formatUnruhe(unruhe)} · Trend: ${formatTrend(trend?.relativeSteigung ?? null)}`;
         subtitle.title = trend
             ? `Trend im Zeitfenster: y(t) = ${formatTrendParameter(trend.steigung)} · t + ${formatTrendParameter(trend.offset)}; t in Tagen seit dem ersten Messwert`
@@ -701,7 +726,7 @@ function formatTrendParameter(value) {
     return Number(value).toLocaleString('de-DE', {maximumFractionDigits: 6});
 }
 function formatNumber(value) { return Number(value).toLocaleString('de-DE', {maximumFractionDigits: 2}); }
-axisLength.addEventListener('change', renderCharts); trendLinesToggle.addEventListener('change', renderCharts); renderCharts();
+axisLength.addEventListener('change', renderCharts); chartSort.addEventListener('change', renderCharts); trendLinesToggle.addEventListener('change', renderCharts); renderCharts();
 JS;
 }
 
