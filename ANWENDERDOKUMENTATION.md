@@ -197,7 +197,7 @@ aller gültigen Kurse im Fenster.
 - links die Treffer des neuesten Analyse-Durchlaufs einschließlich Nachrichten,
 - rechts die neuesten Statistikwerte einschließlich Nachrichten zu den genannten Aktien.
 
-Darunter erscheinen alle Aktien aus `aktienliste.txt` in drei Spalten. Für Aktien ohne gültige Werte im ausgewählten Zeitraum wird eine leere Datenmeldung angezeigt.
+Darunter erscheinen alle Aktien aus `aktienliste.txt` in drei Spalten. Für Aktien ohne gültige Werte im ausgewählten Zeitraum wird eine leere Datenmeldung angezeigt. Mit `Maß der Unruhe` kann nach dem niedrigsten, mittleren oder höchsten Drittel der Aktien sortiert werden. Die Branchen- und Unruheauswahl schließen einander aus.
 
 ## Fehlerbehebung
 

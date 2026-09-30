@@ -398,7 +398,7 @@ function erzeugeKursinfoSeite(): void
     $unruheFensterTage = leseUnruheAnfang(CONFIG_FILE);
     $datenJson = json_encode($zeitreihen, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_THROW_ON_ERROR);
     $html = '<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Kursinfo</title><style>' . kursinfoStyles() . '</style></head><body><main><header><div><p class="eyebrow">MARKET TRACKER</p><h1>Kursinfo</h1></div>'
-        . '<div class="filters"><label for="axisLength">Zeitachse<select id="axisLength"><option>1 Tag</option><option>1 Woche</option><option>1 Monat</option><option>6 Monate</option><option>1 Jahr</option><option>alle Werte</option></select></label><label for="industryFilter">Branchen<select id="industryFilter" multiple size="4"><option value="">Alle Branchen</option></select></label></div></header><section class="overview"><article><h2>Treffer</h2><p class="timestamp">Analyse: ' . html($letzterZeitpunkt ?: 'nicht vorhanden') . '</p>' . $trefferHtml . '</article><article><h2>Statistik</h2><p class="timestamp">Letzter Durchlauf</p>' . $statistikHtml . '</article></section><hr><section><div class="chart-heading"><h2>Kursverlaeufe</h2><span id="chartCount"></span></div><div id="charts" class="charts"></div></section></main><script>const series=' . $datenJson . ';const initialAxis=' . json_encode($axis, JSON_THROW_ON_ERROR) . ';const unruheFensterTage=' . json_encode($unruheFensterTage, JSON_THROW_ON_ERROR) . ';' . kursinfoScript() . '</script></body></html>';
+        . '<div class="filters"><label for="axisLength">Zeitachse<select id="axisLength"><option>1 Tag</option><option>1 Woche</option><option>1 Monat</option><option>6 Monate</option><option>1 Jahr</option><option>alle Werte</option></select></label><label for="industryFilter">Branchen<select id="industryFilter" multiple size="4"><option value="">Alle Branchen</option></select></label><label for="unruheFilter">Maß der Unruhe<select id="unruheFilter"><option value="">Alle Aktien</option><option value="Niedrig">Niedrig</option><option value="Mittel">Mittel</option><option value="Hoch">Hoch</option></select></label></div></header><section class="overview"><article><h2>Treffer</h2><p class="timestamp">Analyse: ' . html($letzterZeitpunkt ?: 'nicht vorhanden') . '</p>' . $trefferHtml . '</article><article><h2>Statistik</h2><p class="timestamp">Letzter Durchlauf</p>' . $statistikHtml . '</article></section><hr><section><div class="chart-heading"><h2>Kursverlaeufe</h2><span id="chartCount"></span></div><div id="charts" class="charts"></div></section></main><script>const series=' . $datenJson . ';const initialAxis=' . json_encode($axis, JSON_THROW_ON_ERROR) . ';const unruheFensterTage=' . json_encode($unruheFensterTage, JSON_THROW_ON_ERROR) . ';' . kursinfoScript() . '</script></body></html>';
     if (file_put_contents(INFO_PAGE_FILE, $html, LOCK_EX) === false) {
         throw new RuntimeException('Die Kursinfo-Seite konnte nicht geschrieben werden.');
     }
@@ -547,6 +547,7 @@ function kursinfoScript(): string
 const ranges = {'1 Tag': 1, '1 Woche': 7, '1 Monat': 31, '6 Monate': 183, '1 Jahr': 365};
 const axisLength = document.getElementById('axisLength');
 const industryFilter = document.getElementById('industryFilter');
+const unruheFilter = document.getElementById('unruheFilter');
 axisLength.value = initialAxis;
 const industries = [...new Set(series.map((item) => item.branche).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'de'));
 industries.forEach((industry) => {
@@ -562,15 +563,35 @@ industryFilter.addEventListener('change', () => {
     } else if (![...industryFilter.selectedOptions].length) {
         alleOption.selected = true;
     }
+    if ([...industryFilter.selectedOptions].some((option) => option.value)) {
+        unruheFilter.value = '';
+    }
+    aktualisiereFilterStatus();
     renderCharts();
 });
+unruheFilter.addEventListener('change', () => {
+    if (unruheFilter.value) {
+        [...industryFilter.options].forEach((option) => { option.selected = option.value === ''; });
+    }
+    aktualisiereFilterStatus();
+    renderCharts();
+});
+function aktualisiereFilterStatus() {
+    const brancheAusgewaehlt = [...industryFilter.selectedOptions].some((option) => option.value);
+    industryFilter.disabled = Boolean(unruheFilter.value);
+    unruheFilter.disabled = brancheAusgewaehlt;
+}
 function renderCharts() {
     const now = Date.now();
     const days = ranges[axisLength.value];
     const cutoff = days ? now - days * 86400000 : 0;
-    const unruheCutoff = now - unruheFensterTage * 86400000;
+    const unruheNachIsin = ermittleUnruheJeAktie(now);
+    const unruheGruppen = gruppiereUnruhe(unruheNachIsin);
     const selectedIndustries = [...industryFilter.selectedOptions].map((option) => option.value).filter(Boolean);
-    const visibleSeries = series.filter((item) => !selectedIndustries.length || selectedIndustries.includes(item.branche));
+    const selectedMeasure = unruheFilter.value;
+    const visibleSeries = series.filter((item) => selectedMeasure
+        ? unruheGruppen.get(item.isin) === selectedMeasure
+        : !selectedIndustries.length || selectedIndustries.includes(item.branche));
     const container = document.getElementById('charts');
     container.replaceChildren();
     let shown = 0;
@@ -580,11 +601,7 @@ function renderCharts() {
         card.className = 'chart'; card.id = `chart-${item.isin}`;
         const title = document.createElement('h3'); title.textContent = item.name; card.append(title);
         const industry = document.createElement('p'); industry.textContent = item.branche; card.append(industry);
-        const unruheWerte = item.werte.filter((point) => {
-            const timestamp = Date.parse(point.zeit.replace(' ', 'T'));
-            return timestamp >= unruheCutoff && timestamp <= now;
-        });
-        const unruhe = berechneUnruhe(unruheWerte);
+        const unruhe = unruheNachIsin.get(item.isin) ?? null;
         const subtitle = document.createElement('p'); subtitle.textContent = `${item.isin} · Unruhe: ${formatUnruhe(unruhe)}`;
         subtitle.title = `Unruhe der letzten ${unruheFensterTage} Tage`;
         card.append(subtitle);
@@ -604,6 +621,30 @@ function renderCharts() {
         const path = document.createElementNS('http://www.w3.org/2000/svg', 'polyline'); path.setAttribute('points', points); path.classList.add('line'); svg.append(path); card.append(svg); container.append(card);
     });
     document.getElementById('chartCount').textContent = `${shown} von ${visibleSeries.length} Aktien mit Werten`;
+}
+function ermittleUnruheJeAktie(now) {
+    const cutoff = now - unruheFensterTage * 86400000;
+    return new Map(series.map((item) => {
+        const values = item.werte.filter((point) => {
+            const timestamp = Date.parse(point.zeit.replace(' ', 'T'));
+            return timestamp >= cutoff && timestamp <= now;
+        });
+        return [item.isin, berechneUnruhe(values)];
+    }));
+}
+function gruppiereUnruhe(unruheNachIsin) {
+    const sortierteAktien = series
+        .map((item) => ({isin: item.isin, wert: unruheNachIsin.get(item.isin)}))
+        .filter((item) => Number.isFinite(item.wert))
+        .sort((links, rechts) => links.wert - rechts.wert || links.isin.localeCompare(rechts.isin));
+    const niedrigEnde = Math.ceil(sortierteAktien.length / 3);
+    const hochAnfang = Math.max(niedrigEnde, Math.floor(sortierteAktien.length * 2 / 3));
+    const gruppen = new Map();
+    sortierteAktien.forEach((item, index) => {
+        const gruppe = index < niedrigEnde ? 'Niedrig' : index >= hochAnfang ? 'Hoch' : 'Mittel';
+        gruppen.set(item.isin, gruppe);
+    });
+    return gruppen;
 }
 function berechneUnruhe(values) {
     if (!values.length) return null;
