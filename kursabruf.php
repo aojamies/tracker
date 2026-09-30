@@ -398,7 +398,7 @@ function erzeugeKursinfoSeite(): void
     $unruheFensterTage = leseUnruheAnfang(CONFIG_FILE);
     $datenJson = json_encode($zeitreihen, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_THROW_ON_ERROR);
     $html = '<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Kursinfo</title><style>' . kursinfoStyles() . '</style></head><body><main><header><div><p class="eyebrow">MARKET TRACKER</p><h1>Kursinfo</h1></div>'
-        . '<div class="filters"><label for="axisLength">Zeitachse<select id="axisLength"><option>1 Tag</option><option>1 Woche</option><option>1 Monat</option><option>6 Monate</option><option>1 Jahr</option><option>alle Werte</option></select></label><label for="industryFilter">Branchen<select id="industryFilter" multiple size="4"><option value="">Alle Branchen</option></select></label><label for="unruheFilter">Maß der Unruhe<select id="unruheFilter"><option value="">Alle Aktien</option><option value="Niedrig">Niedrig</option><option value="Mittel">Mittel</option><option value="Hoch">Hoch</option></select></label></div></header><section class="overview"><article><h2>Treffer</h2><p class="timestamp">Analyse: ' . html($letzterZeitpunkt ?: 'nicht vorhanden') . '</p>' . $trefferHtml . '</article><article><h2>Statistik</h2><p class="timestamp">Letzter Durchlauf</p>' . $statistikHtml . '</article></section><hr><section><div class="chart-heading"><h2>Kursverlaeufe</h2><span id="chartCount"></span></div><div id="charts" class="charts"></div></section></main><script>const series=' . $datenJson . ';const initialAxis=' . json_encode($axis, JSON_THROW_ON_ERROR) . ';const unruheFensterTage=' . json_encode($unruheFensterTage, JSON_THROW_ON_ERROR) . ';' . kursinfoScript() . '</script></body></html>';
+        . '<div class="filters"><label for="axisLength">Zeitachse<select id="axisLength"><option>1 Tag</option><option>1 Woche</option><option>1 Monat</option><option>6 Monate</option><option>1 Jahr</option><option>alle Werte</option></select></label><label for="industryFilter">Branchen<select id="industryFilter" multiple size="4"><option value="">Alle Branchen</option></select></label><label for="unruheFilter">Maß der Unruhe<select id="unruheFilter"><option value="">Alle Aktien</option><option value="Niedrig">Niedrig</option><option value="Mittel">Mittel</option><option value="Hoch">Hoch</option></select></label><label class="trend-toggle" for="trendLinesToggle"><input id="trendLinesToggle" type="checkbox" checked>Trendlinien</label></div></header><section class="overview"><article><h2>Treffer</h2><p class="timestamp">Analyse: ' . html($letzterZeitpunkt ?: 'nicht vorhanden') . '</p>' . $trefferHtml . '</article><article><h2>Statistik</h2><p class="timestamp">Letzter Durchlauf</p>' . $statistikHtml . '</article></section><hr><section><div class="chart-heading"><h2>Kursverlaeufe</h2><span id="chartCount"></span></div><div id="charts" class="charts"></div></section></main><script>const series=' . $datenJson . ';const initialAxis=' . json_encode($axis, JSON_THROW_ON_ERROR) . ';const unruheFensterTage=' . json_encode($unruheFensterTage, JSON_THROW_ON_ERROR) . ';' . kursinfoScript() . '</script></body></html>';
     if (file_put_contents(INFO_PAGE_FILE, $html, LOCK_EX) === false) {
         throw new RuntimeException('Die Kursinfo-Seite konnte nicht geschrieben werden.');
     }
@@ -529,13 +529,13 @@ header { display: flex; align-items: end; justify-content: space-between; gap: 2
 h1, h2 { margin: 0; font-weight: 400; } h1 { font-size: clamp(36px, 5vw, 64px); line-height: .95; } h2 { font-size: 24px; }
 label { display: grid; gap: 7px; color: var(--muted); font: 700 12px Arial, sans-serif; text-transform: uppercase; letter-spacing: 1px; }
 select { min-width: 160px; padding: 11px 34px 11px 12px; border: 1px solid var(--line); border-radius: 3px; background: white; color: var(--ink); font: 15px Georgia, serif; }
-.filters { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; } #industryFilter { min-width: 190px; min-height: 92px; }
+.filters { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; } #industryFilter { min-width: 190px; min-height: 92px; } .trend-toggle { display: flex; align-items: center; gap: 8px; min-height: 38px; text-transform: none; letter-spacing: 0; } .trend-toggle input { width: 16px; height: 16px; margin: 0; accent-color: #277b69; }
 .overview { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; } article { min-height: 190px; padding: 22px; border: 1px solid var(--line); border-top: 4px solid var(--accent); background: var(--panel); box-shadow: 0 10px 30px rgba(23,34,31,.05); }
 .timestamp, .empty, .result span, .result small, .stat span, .stat small, #chartCount { color: var(--muted); font: 12px/1.5 Arial, sans-serif; } .timestamp { margin: 7px 0 16px; }
 .result, .stat { display: grid; gap: 4px; padding: 11px 0; border-top: 1px solid var(--line); } .result strong, .stat strong { font-size: 16px; } .result small, .stat small { word-break: break-word; } .stock-link { color: inherit; text-decoration: none; } .stock-link:hover { color: var(--accent); text-decoration: underline; }
 .news { display: grid; gap: 4px; margin: 4px 0 0; padding: 0; list-style: none; } .news li { display: grid; gap: 1px; padding-left: 12px; border-left: 2px solid var(--accent-soft); } .news a { color: var(--ink); font: 13px/1.3 Arial, sans-serif; text-decoration: none; } .news a:hover { color: var(--accent); } .news small, .news-empty { font: 10px Arial, sans-serif; color: var(--muted); } .news-empty { margin: 4px 0 0; }
 hr { margin: 38px 0 28px; border: 0; border-top: 1px solid var(--line); } .chart-heading { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; } .charts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
-.chart { min-width: 0; padding: 14px; border: 1px solid var(--line); background: rgba(255,255,255,.78); } .chart h3 { overflow: hidden; margin: 0 0 2px; font-size: 15px; font-weight: 400; text-overflow: ellipsis; white-space: nowrap; } .chart p { margin: 0 0 8px; color: var(--muted); font: 10px Arial, sans-serif; } svg { display: block; width: 100%; height: 150px; overflow: visible; } .gridline { stroke: #e8eeea; stroke-width: 1; } .axis { stroke: #9ca9a3; stroke-width: 1; } .axis-label { fill: var(--muted); font: 9px Arial, sans-serif; } .line { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; } .no-data { display: grid; place-items: center; height: 150px; color: var(--muted); font: 12px Arial, sans-serif; }
+.chart { min-width: 0; padding: 14px; border: 1px solid var(--line); background: rgba(255,255,255,.78); } .chart h3 { overflow: hidden; margin: 0 0 2px; font-size: 15px; font-weight: 400; text-overflow: ellipsis; white-space: nowrap; } .chart p { margin: 0 0 8px; color: var(--muted); font: 10px Arial, sans-serif; } svg { display: block; width: 100%; height: 150px; overflow: visible; } .gridline { stroke: #e8eeea; stroke-width: 1; } .axis { stroke: #9ca9a3; stroke-width: 1; } .axis-label { fill: var(--muted); font: 9px Arial, sans-serif; } .line { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; } .trend-line { stroke: #277b69; stroke-width: 1.5; stroke-dasharray: 5 4; } .no-data { display: grid; place-items: center; height: 150px; color: var(--muted); font: 12px Arial, sans-serif; }
 @media (max-width: 800px) { main { width: min(100% - 24px, 620px); padding-top: 22px; } header, .overview { grid-template-columns: 1fr; display: grid; } .charts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 480px) { .charts { grid-template-columns: 1fr; } header { align-items: start; } }
 CSS;
@@ -548,6 +548,7 @@ const ranges = {'1 Tag': 1, '1 Woche': 7, '1 Monat': 31, '6 Monate': 183, '1 Jah
 const axisLength = document.getElementById('axisLength');
 const industryFilter = document.getElementById('industryFilter');
 const unruheFilter = document.getElementById('unruheFilter');
+const trendLinesToggle = document.getElementById('trendLinesToggle');
 axisLength.value = initialAxis;
 const industries = [...new Set(series.map((item) => item.branche).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'de'));
 industries.forEach((industry) => {
@@ -614,7 +615,12 @@ function renderCharts() {
         const width = 340, height = 150, left = 38, right = 7, top = 15, bottom = 25;
         const numbers = values.map((point) => point.wert), min = Math.min(...numbers), max = Math.max(...numbers), span = max - min || 1;
         const plotWidth = width - left - right, plotHeight = height - top - bottom;
-        const points = values.map((point, index) => `${left + index * plotWidth / Math.max(values.length - 1, 1)},${top + plotHeight - (point.wert - min) * plotHeight / span}`).join(' ');
+        const startzeit = Date.parse(values[0].zeit.replace(' ', 'T'));
+        const zeitOffsets = values.map((point) => (Date.parse(point.zeit.replace(' ', 'T')) - startzeit) / 86400000);
+        const zeitspanne = zeitOffsets[zeitOffsets.length - 1];
+        const xPosition = (offset, index) => left + (zeitspanne > 0 ? offset * plotWidth / zeitspanne : index * plotWidth / Math.max(values.length - 1, 1));
+        const yPosition = (value) => top + plotHeight - (value - min) * plotHeight / span;
+        const points = values.map((point, index) => `${xPosition(zeitOffsets[index], index)},${yPosition(point.wert)}`).join(' ');
         const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); svg.setAttribute('viewBox', `0 0 ${width} ${height}`); svg.setAttribute('role', 'img'); svg.setAttribute('aria-label', `Kursverlauf ${item.name}`);
         [0.25, 0.5, 0.75].forEach((ratio) => { const line = document.createElementNS('http://www.w3.org/2000/svg', 'line'); line.setAttribute('x1', left); line.setAttribute('x2', width - right); line.setAttribute('y1', top + plotHeight * ratio); line.setAttribute('y2', top + plotHeight * ratio); line.classList.add('gridline'); svg.append(line); });
         const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line'); xAxis.setAttribute('x1', left); xAxis.setAttribute('x2', width - right); xAxis.setAttribute('y1', top + plotHeight); xAxis.setAttribute('y2', top + plotHeight); xAxis.classList.add('axis'); svg.append(xAxis);
@@ -622,7 +628,14 @@ function renderCharts() {
         function addLabel(text, x, y, anchor) { const label = document.createElementNS('http://www.w3.org/2000/svg', 'text'); label.textContent = text; label.setAttribute('x', x); label.setAttribute('y', y); label.setAttribute('text-anchor', anchor); label.classList.add('axis-label'); svg.append(label); }
         const dateLabel = (value) => value.slice(5, 10).replace('-', '.');
         addLabel(formatNumber(max), left - 5, top + 3, 'end'); addLabel(formatNumber(min), left - 5, top + plotHeight, 'end'); addLabel(dateLabel(values[0].zeit), left, height - 7, 'start'); addLabel(dateLabel(values[values.length - 1].zeit), width - right, height - 7, 'end');
-        const path = document.createElementNS('http://www.w3.org/2000/svg', 'polyline'); path.setAttribute('points', points); path.classList.add('line'); svg.append(path); card.append(svg); container.append(card);
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'polyline'); path.setAttribute('points', points); path.classList.add('line'); svg.append(path);
+        if (trendLinesToggle.checked && trend && zeitspanne > 0) {
+            const trendLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            trendLine.setAttribute('x1', xPosition(0, 0)); trendLine.setAttribute('x2', xPosition(zeitspanne, values.length - 1));
+            trendLine.setAttribute('y1', yPosition(trend.offset)); trendLine.setAttribute('y2', yPosition(trend.steigung * zeitspanne + trend.offset));
+            trendLine.classList.add('trend-line'); svg.append(trendLine);
+        }
+        card.append(svg); container.append(card);
     });
     document.getElementById('chartCount').textContent = `${shown} von ${visibleSeries.length} Aktien mit Werten`;
 }
@@ -680,15 +693,15 @@ function formatUnruhe(value) {
 }
 function formatTrend(value) {
     if (value === null) return 'n.v.';
-    const prozentProTag = value * 100;
-    const vorzeichen = prozentProTag > 0 ? '+' : '';
-    return `${vorzeichen}${prozentProTag.toLocaleString('de-DE', {minimumFractionDigits: 4, maximumFractionDigits: 4})} %/Tag`;
+    const prozentProJahr = value * 365.25 * 100;
+    const vorzeichen = prozentProJahr > 0 ? '+' : '';
+    return `${vorzeichen}${prozentProJahr.toLocaleString('de-DE', {minimumFractionDigits: 4, maximumFractionDigits: 4})} %/Jahr`;
 }
 function formatTrendParameter(value) {
     return Number(value).toLocaleString('de-DE', {maximumFractionDigits: 6});
 }
 function formatNumber(value) { return Number(value).toLocaleString('de-DE', {maximumFractionDigits: 2}); }
-axisLength.addEventListener('change', renderCharts); renderCharts();
+axisLength.addEventListener('change', renderCharts); trendLinesToggle.addEventListener('change', renderCharts); renderCharts();
 JS;
 }
 
