@@ -158,6 +158,7 @@ tStabilAnfang=20
 tStabilEnde=5
 tAbfallAnfang=4
 tAbfallEnde=0
+tUnruheAnfang=30
 StabSchwelle=0.03
 AbfallSchwelle=-0.05
 LaengeZeitachse=1 Monat
@@ -173,6 +174,11 @@ LaengeZeitachse=1 Monat
 - `alle Werte`
 
 Die Auswahl kann anschließend direkt in `kursinfo.html` geändert werden. Die Grafiken zeigen je Aktie Kurs-Minimum und Kurs-Maximum an der y-Achse sowie das erste und letzte Datum des gewählten Zeitraums an der x-Achse.
+
+`tUnruheAnfang` legt das Fenster in Tagen fest, über das neben jeder ISIN in
+den Kursgrafiken die Unruhe berechnet wird. Sie entspricht der Summe der
+absoluten Differenzen aufeinanderfolgender Kurse geteilt durch den Mittelwert
+aller gültigen Kurse im Fenster.
 
 ## Ausgabedateien
 

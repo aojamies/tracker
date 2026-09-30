@@ -395,9 +395,10 @@ function erzeugeKursinfoSeite(): void
     }
 
     $axis = leseKursinfoKonfiguration(CONFIG_FILE);
+    $unruheFensterTage = leseUnruheAnfang(CONFIG_FILE);
     $datenJson = json_encode($zeitreihen, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_THROW_ON_ERROR);
     $html = '<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Kursinfo</title><style>' . kursinfoStyles() . '</style></head><body><main><header><div><p class="eyebrow">MARKET TRACKER</p><h1>Kursinfo</h1></div>'
-        . '<div class="filters"><label for="axisLength">Zeitachse<select id="axisLength"><option>1 Tag</option><option>1 Woche</option><option>1 Monat</option><option>6 Monate</option><option>1 Jahr</option><option>alle Werte</option></select></label><label for="industryFilter">Branchen<select id="industryFilter" multiple size="4"><option value="">Alle Branchen</option></select></label></div></header><section class="overview"><article><h2>Treffer</h2><p class="timestamp">Analyse: ' . html($letzterZeitpunkt ?: 'nicht vorhanden') . '</p>' . $trefferHtml . '</article><article><h2>Statistik</h2><p class="timestamp">Letzter Durchlauf</p>' . $statistikHtml . '</article></section><hr><section><div class="chart-heading"><h2>Kursverlaeufe</h2><span id="chartCount"></span></div><div id="charts" class="charts"></div></section></main><script>const series=' . $datenJson . ';const initialAxis=' . json_encode($axis, JSON_THROW_ON_ERROR) . ';' . kursinfoScript() . '</script></body></html>';
+        . '<div class="filters"><label for="axisLength">Zeitachse<select id="axisLength"><option>1 Tag</option><option>1 Woche</option><option>1 Monat</option><option>6 Monate</option><option>1 Jahr</option><option>alle Werte</option></select></label><label for="industryFilter">Branchen<select id="industryFilter" multiple size="4"><option value="">Alle Branchen</option></select></label></div></header><section class="overview"><article><h2>Treffer</h2><p class="timestamp">Analyse: ' . html($letzterZeitpunkt ?: 'nicht vorhanden') . '</p>' . $trefferHtml . '</article><article><h2>Statistik</h2><p class="timestamp">Letzter Durchlauf</p>' . $statistikHtml . '</article></section><hr><section><div class="chart-heading"><h2>Kursverlaeufe</h2><span id="chartCount"></span></div><div id="charts" class="charts"></div></section></main><script>const series=' . $datenJson . ';const initialAxis=' . json_encode($axis, JSON_THROW_ON_ERROR) . ';const unruheFensterTage=' . json_encode($unruheFensterTage, JSON_THROW_ON_ERROR) . ';' . kursinfoScript() . '</script></body></html>';
     if (file_put_contents(INFO_PAGE_FILE, $html, LOCK_EX) === false) {
         throw new RuntimeException('Die Kursinfo-Seite konnte nicht geschrieben werden.');
     }
@@ -496,6 +497,26 @@ function leseKursinfoKonfiguration(string $dateiname): string
     return '1 Monat';
 }
 
+function leseUnruheAnfang(string $dateiname): int
+{
+    $zeilen = file($dateiname, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    if ($zeilen === false) {
+        throw new RuntimeException("Die Konfigurationsdatei '$dateiname' kann nicht gelesen werden.");
+    }
+
+    foreach ($zeilen as $zeile) {
+        if (preg_match('/^\s*tUnruheAnfang\s*=\s*(\d+)\s*(?:#.*)?$/', $zeile, $treffer) === 1) {
+            $tage = (int) $treffer[1];
+            if ($tage < 1) {
+                throw new RuntimeException('tUnruheAnfang muss mindestens 1 Tag betragen.');
+            }
+            return $tage;
+        }
+    }
+
+    return 30;
+}
+
 function kursinfoStyles(): string
 {
         return <<<'CSS'
@@ -544,8 +565,10 @@ industryFilter.addEventListener('change', () => {
     renderCharts();
 });
 function renderCharts() {
+    const now = Date.now();
     const days = ranges[axisLength.value];
-    const cutoff = days ? Date.now() - days * 86400000 : 0;
+    const cutoff = days ? now - days * 86400000 : 0;
+    const unruheCutoff = now - unruheFensterTage * 86400000;
     const selectedIndustries = [...industryFilter.selectedOptions].map((option) => option.value).filter(Boolean);
     const visibleSeries = series.filter((item) => !selectedIndustries.length || selectedIndustries.includes(item.branche));
     const container = document.getElementById('charts');
@@ -557,7 +580,14 @@ function renderCharts() {
         card.className = 'chart'; card.id = `chart-${item.isin}`;
         const title = document.createElement('h3'); title.textContent = item.name; card.append(title);
         const industry = document.createElement('p'); industry.textContent = item.branche; card.append(industry);
-        const subtitle = document.createElement('p'); subtitle.textContent = item.isin; card.append(subtitle);
+        const unruheWerte = item.werte.filter((point) => {
+            const timestamp = Date.parse(point.zeit.replace(' ', 'T'));
+            return timestamp >= unruheCutoff && timestamp <= now;
+        });
+        const unruhe = berechneUnruhe(unruheWerte);
+        const subtitle = document.createElement('p'); subtitle.textContent = `${item.isin} · Unruhe: ${formatUnruhe(unruhe)}`;
+        subtitle.title = `Unruhe der letzten ${unruheFensterTage} Tage`;
+        card.append(subtitle);
         if (!values.length) { const empty = document.createElement('div'); empty.className = 'no-data'; empty.textContent = 'Keine Werte im Zeitraum'; card.append(empty); container.append(card); return; }
         shown++;
         const width = 340, height = 150, left = 38, right = 7, top = 15, bottom = 25;
@@ -574,6 +604,19 @@ function renderCharts() {
         const path = document.createElementNS('http://www.w3.org/2000/svg', 'polyline'); path.setAttribute('points', points); path.classList.add('line'); svg.append(path); card.append(svg); container.append(card);
     });
     document.getElementById('chartCount').textContent = `${shown} von ${visibleSeries.length} Aktien mit Werten`;
+}
+function berechneUnruhe(values) {
+    if (!values.length) return null;
+    const mittelwert = values.reduce((sum, point) => sum + point.wert, 0) / values.length;
+    if (mittelwert <= 0) return null;
+    let differenzSumme = 0;
+    for (let index = 1; index < values.length; index++) {
+        differenzSumme += Math.abs(values[index].wert - values[index - 1].wert);
+    }
+    return differenzSumme / mittelwert;
+}
+function formatUnruhe(value) {
+    return value === null ? 'n.v.' : value.toLocaleString('de-DE', {minimumFractionDigits: 4, maximumFractionDigits: 4});
 }
 function formatNumber(value) { return Number(value).toLocaleString('de-DE', {maximumFractionDigits: 2}); }
 axisLength.addEventListener('change', renderCharts); renderCharts();
