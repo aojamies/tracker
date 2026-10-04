@@ -104,7 +104,7 @@ Nr. | ISIN         | Bezeichnung des Wertpapiers                                
 102 | DE0007100000 | Mercedes-Benz Group (DAX / EURO STOXX 50)                         | Automobilindustrie
 103 | US59156R1086 | MetLife Inc.                                                      | Lebens- und Rentenversicherung
 104 | DE000BFB0019 | Metro AG (SDAX)                                                   | Großhandel / Lebensmittel
-105 | FI4000076650 | Metso Oyj                                                         | Teollisuus / Kaivos- ja kivenmurskausteknologia
+105 | FI0009014575 | Metso Rg                                                          | Rohstoffe
 106 | US5949181045 | Microsoft (Dow Jones)                                             | Software & Cloud-Computing
 107 | JP3496400007 | Mitsubishi UFJ Financial Group (Tokio (Nikkei 225))               | Banken & Finanzdienstleistungen
 108 | DE000A0D9PT0 | MTU Aero Engines (DAX)                                            | Luftfahrtzulieferer (Triebwerke)
