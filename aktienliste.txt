@@ -64,7 +64,7 @@ Nr. | ISIN         | Bezeichnung des Wertpapiers                                
 62  | IE00BWT6H894 | Flutter Entertainment (EURO STOXX 50)                             | Glücksspiel & Sportwetten
 63  | FI0009007132 | Fortum Oyj                                                        | Utilities / Energiantuotanto
 64  | DE000A0Z2ZZ5 | Freenet AG (SDAX)                                                 | Telekommunikation
-65  | DE0005785604 | Fresenius Medical Care (SDAX)                                     | Medizintechnik (Dialyse)
+65  | DE0005785802 | Fresenius Medical Care                                            | Medizintechnik (Dialyse)
 66  | DE000KGX8881 | GEA Group AG (DAX)                                                | Maschinen- und Anlagenbau
 67  | GB00BL6K5285 | Glencore (STOXX Europe 50)                                        | Bergbau und Rohstoffe
 68  | US3802371076 | GoDaddy Rg-A                                                      | Internet-Dienstleistungen
