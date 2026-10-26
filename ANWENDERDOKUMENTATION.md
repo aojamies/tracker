@@ -104,6 +104,14 @@ Ausgabe bei Erfolg:
 Kursinfo-Seite wurde aktualisiert.
 ```
 
+Die kleinen Kursgrafiken können zusätzlich die `KorrelationsTrefferAnzahl`
+stärksten positiven und negativen Korrelationstreffer anzeigen. Die Anzahl
+wird in `tracker.cfg` festgelegt (Standard: 3). Die Optionen `Positive
+Korrelation` und `Negative Korrelation` lassen sich unabhängig voneinander
+aktivieren. Referenzkurse werden am ersten gemeinsamen Zeitstempel auf den Kurs
+der dargestellten Aktie skaliert. Nach Änderungen an den Kurs- oder
+Korrelationsdaten die Kursinfo-Seite mit `--generate-info-only` neu erzeugen.
+
 ### Browser/Webserver
 
 ```text
