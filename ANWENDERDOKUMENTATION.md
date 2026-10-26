@@ -144,6 +144,47 @@ Im Menü stehen derzeit diese Prüfungen zur Verfügung:
 	neu einsortiert und der Spaltenkopf in `kurstabelle.txt` entsprechend
 	angepasst; historische Kurswerte bleiben der Aktie zugeordnet.
 
+## Korrelationen und Granger-Kausalität
+
+Das Python-Programm `korrelationsanalyse.py` bereitet die Kursverläufe aus
+`kurstabelle.txt` für eine Heatmap auf. Es normalisiert jede Aktie anhand ihres
+neuesten gültigen Kurses auf 1 und schreibt die gesamte normalisierte Historie
+nach `normalisierte_kurse.txt`. Mehrere Kurse eines Tages werden je Aktie
+gemittelt. Fehlende Tage werden zwischen vorhandenen Kursen linear interpoliert;
+fehlende Werte am Anfang oder Ende der Historie übernehmen den jeweils nächsten
+gültigen Kurs. Die Ausgabe enthält für jeden Kalendertag einen Kurswert. Die
+paarweisen Ergebnisse stehen in `kausalitaet.txt`.
+
+Das Zeitfenster wird in `tracker.cfg` über `KorrelationsfensterTage` festgelegt.
+Der Wert gilt in Tagen relativ zum neuesten Zeitstempel; `0` verwendet die
+gesamte Historie. Die maximale Lagzahl des Granger-Tests kann beim Aufruf
+geändert werden:
+
+```powershell
+py -m pip install -r requirements.txt
+py korrelationsanalyse.py --max-lag 5
+```
+
+`--quelle`, `--normalisiert` und `--ergebnis` erlauben alternative Datei-Pfade.
+Die Korrelation wird als vorzeichenbehafteter Pearson-Koeffizient synchroner
+Log-Renditen ausgegeben; damit bedeuten positive und negative Werte gleich- bzw.
+gegenläufige Bewegungen. Der Granger-Test prüft beide Richtungen und gibt den
+kleinsten p-Wert der getesteten Lagzahlen samt Lag aus. Ein kleiner p-Wert ist
+ein statistischer Hinweis auf Vorhersagekraft, kein Beleg für wirtschaftliche
+Ursächlichkeit. Während der Analyse zeigt die Konsole den aktuellen Paarindex
+und die Gesamtzahl der Aktienpaare an.
+
+Die Ergebnisse lassen sich als interaktive Heatmap darstellen:
+
+```powershell
+py korrelations_heatmap.py
+```
+
+Das Skript erzeugt `korrelations_heatmap.html` mit der symmetrischen
+Korrelationsmatrix, Aktiennamen auf beiden Achsen, einer Farbskala von -1 bis 1
+und dem exakten Koeffizienten beim Überfahren einer Zelle. Quelle und Ausgabe
+können mit `--quelle` und `--ausgabe` angegeben werden.
+
 Vor dem Ändern prüft das Programm, ob Überschriften und Spaltenanzahl der
 Kurstabelle zur Aktienliste passen. Bei einer Abweichung wird abgebrochen, ohne
 Dateien zu ändern. Eine bereits vorhandene ISIN kann nicht nochmals eingefügt
