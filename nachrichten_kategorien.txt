@@ -1,0 +1,21 @@
+1  Zinsentscheidungen, Zentralbankaussagen
+2  Steigende Zinsen
+3  Fallende Zinsen
+4  Inflation, Konjunkturdaten, Verbraucherpreise, Arbeitsmarkt, Wirtschaftswachstum
+5  Steigende Inflation
+6  Sinkende Inflation
+7  Energiepreise, Lieferengpässe, Öl- oder Gaspreissprünge
+8  Steigender Ölpreis
+9  Fallender Ölpreis
+10 Steigender Goldpreis
+11 Sinkender Goldpreis
+12 Politik, Geopolitik, Kriege, Sanktionen, Zölle, Handelskonflikte
+13 Steigende Immobilienpreise
+14 Fallende Immobilienpreise
+15 Unwetter, Erdbeben, Umweltkatastrofen, Wetterextreme
+16 Luft- und Raumfahrt
+17 Umweltschutz, renerative Energien, Kreislaufwirtschaft
+18 Umweltzerstörung
+19 Pandemie, Epidemie, Verbreitung von ansteckenden Krankheiten
+20 Schere zwischen arm und reich, Armut, Elend
+21 Künstliche Intelligenz

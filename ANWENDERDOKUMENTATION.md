@@ -6,6 +6,10 @@
 
 Die Kursdaten und Nachrichten stammen von Yahoo Finance. Für Nachrichten werden zusätzlich Yahoo-RSS und Google-News-RSS als Fallback verwendet.
 
+Ein separates Skript kann Nachrichten aus konfigurierten RSS-Feeds dauerhaft in
+`nachrichten.txt` archivieren. Es ergänzt neue Einträge ohne Duplikate und
+entfernt Nachrichten außerhalb der konfigurierten Haltedauer.
+
 ## Voraussetzungen
 
 - PHP 8.1 oder neuer
@@ -41,6 +45,87 @@ Wenn `php.exe` im `PATH` eingetragen ist:
 php kursabruf.php
 ```
 
+## RSS-Nachrichten archivieren
+
+`nachrichtenabruf.php` ruft die in `tracker.cfg` eingetragenen RSS-Feeds ab und
+schreibt Überschrift, Textkörper, Zeitstempel und Quellenlink nach
+`nachrichten.txt`. Wiederholte Einträge werden anhand der Feed-ID erkannt. Bei
+jedem erfolgreichen Aufruf werden außerdem Nachrichten entfernt, deren
+Zeitstempel älter als die Haltedauer ist.
+
+Für den Textkörper wird ein vom RSS-Feed bereitgestelltes `content:encoded`
+bevorzugt; falls es fehlt, wird die Feed-Beschreibung gespeichert. Verlinkte
+Webseiten werden nicht automatisch ausgelesen. Beachte die Nutzungsbedingungen
+des jeweiligen Feed-Anbieters.
+
+Die Voreinstellung ist der Nachrichtenfeed des Deutschlandfunks mit einer
+Haltedauer von sieben Tagen:
+
+```ini
+NachrichtenFeeds=https://www.deutschlandfunk.de/nachrichten-100.rss
+NachrichtenHaltedauerTage=7
+```
+
+Weitere Feeds können durch Semikolon getrennt eingetragen werden. Das Skript
+wird beispielsweise in PowerShell im Projektverzeichnis aufgerufen:
+
+```powershell
+php nachrichtenabruf.php
+```
+
+Für einen Aufruf über den Webserver kann die Skript-URL direkt im Browser
+geöffnet werden:
+
+```text
+https://example.org/tracker/nachrichtenabruf.php
+```
+
+Der HTTP-Aufruf wartet auf den Abschluss des Abrufs und gibt das Ergebnis als
+Text aus. Da jeder Aufruf externe Feeds abruft und `nachrichten.txt` ändert,
+sollte die URL wie ein Administrationsendpunkt geschützt werden, zum Beispiel
+durch HTTP-Authentifizierung, eine interne URL oder eine IP-Beschränkung.
+
+Für den Abruf müssen die PHP-Erweiterungen cURL und SimpleXML aktiviert sein.
+
+## Nachrichten lokal kategorisieren
+
+`nachrichten_kategorisieren.php` durchsucht `nachrichten.txt` lokal nach
+Begriffen aus `nachrichten_kategorien.txt` und den Synonymen in
+`nachrichten_stichwoerter.txt`. Groß-/Kleinschreibung und Satzzeichen werden
+normalisiert. Eine Nachricht zählt pro Kategorie höchstens einmal, unabhängig
+davon, wie oft Begriffe darin vorkommen. Für jede Fundstelle enthält
+`kategorien_treffer.txt` Nachrichten-ID, Überschrift, gefundene Begriffe und
+Quelllink. Es werden keine Texte an einen externen Dienst übertragen und es
+ist kein API-Schlüssel erforderlich.
+
+Die Synonymdatei enthält pro Zeile eine Kategorie-ID, eine Kurzbezeichnung und
+durch Semikolon getrennte Begriffe, getrennt durch senkrechte Striche, zum
+Beispiel:
+
+```text
+8|Ölpreis steigt|Ölpreis steigt;Rohöl verteuert sich;Brent legt zu
+```
+
+Die Kurzbezeichnung ist für eine spätere Verwendung als Kategoriename
+mitgespeichert. Die vorhandenen Komma-Begriffe aus der Kategorien-Datei werden
+ebenfalls als Suchbegriffe verwendet. Die Synonyme sind eine gepflegte lexikalische
+Annäherung und erkennen keine beliebigen sinngemäßen Umschreibungen. Besonders
+gegenläufige Themen wie steigende und fallende Preise sollten mit getrennten,
+präzisen Phrasen gepflegt werden.
+
+Das Skript kann per CLI oder über eine geschützte URL ausgeführt werden:
+
+```powershell
+php nachrichten_kategorisieren.php
+```
+
+```text
+https://example.org/tracker/nachrichten_kategorisieren.php
+```
+
+Der Aufruf ändert die Ergebnisdatei und sollte wie ein Administrationsendpunkt
+geschützt sein.
+
 ### Windows Eingabeaufforderung
 
 ```cmd
@@ -62,7 +147,8 @@ Der vollständige Ablauf ist:
 5. Die Analyse prüft die Stabilitäts- und Abfallfenster.
 6. Treffer werden an `treffer.txt` angehängt.
 7. Die Kennzahlen werden an `statistik.txt` angehängt.
-8. `kursinfo.html` wird neu erzeugt.
+8. Die RSS-Nachrichten werden aktualisiert und lokal kategorisiert.
+9. `kursinfo.html` wird mit den Kategorie-Treffern und Nachrichtenlinks neu erzeugt.
 
 Eine erfolgreiche CLI-Ausgabe lautet:
 
@@ -234,6 +320,7 @@ aller gültigen Kurse im Fenster.
 | Datei | Inhalt |
 |---|---|
 | `kurstabelle.txt` | Tab-getrennte historische Kurswerte mit Zeitstempel |
+| `nachrichten.txt` | RSS-Nachrichtenarchiv mit Überschrift, Textkörper, Zeitstempel und Quelle |
 | `treffer.txt` | Aktien, die den Analysebedingungen entsprochen haben |
 | `statistik.txt` | Verlauf der Kennzahlen und betroffene Aktien |
 | `kursinfo.html` | Anwenderseite mit Treffern, Statistik, Nachrichten und Grafiken |

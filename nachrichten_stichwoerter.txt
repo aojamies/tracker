@@ -1,0 +1,22 @@
+# Format: Kategorie-ID|Kurzbezeichnung|Synonym oder Stichwort;weiterer Begriff;Phrasen
+1|Geldpolitik|Zinsentscheid;Zinsentscheidung;Leitzinsentscheidung;Geldpolitik;Zinspolitik;Notenbank;Zentralbankchef;Notenbankchef;EZB-Rat;Federal Reserve;Fed-Sitzung
+2|Zinsen steigen|Zinserhöhung;Zinserhöhungen;Zinsen steigen;Zins steigt;Leitzins steigt;Leitzins erhöht;Leitzins angehoben;Zinsen angehoben;höhere Zinsen;Zinsanstieg;Zinsanhebung;geldpolitische Straffung
+3|Zinsen fallen|Zinssenkung;Zinssenkungen;Zinsen sinken;Zins sinkt;Leitzins sinkt;Leitzins gesenkt;Leitzins reduziert;niedrigere Zinsen;Zinsrückgang;Zinssenkungsschritt;geldpolitische Lockerung
+4|Konjunktur & Preise|Bruttoinlandsprodukt;BIP;Wirtschaftsleistung;Wirtschaftsdaten;Konjunktur;Konjunkturindikator;Verbraucherpreisindex;Erzeugerpreise;Teuerungsrate;Arbeitslosenquote;Beschäftigungszahlen;Industrieproduktion;Einkaufsmanagerindex;Einzelhandelsumsatz
+5|Inflation steigt|Inflationsrate steigt;Inflation steigt;Inflation nimmt zu;Inflation zieht an;Teuerung steigt;Teuerung nimmt zu;Preisauftrieb;Preise steigen weiter;höhere Inflationsrate;beschleunigte Inflation;Inflationsdruck nimmt zu
+6|Inflation sinkt|Inflationsrate sinkt;Inflation sinkt;Inflation geht zurück;Inflation lässt nach;Teuerung sinkt;Teuerung lässt nach;nachlassender Preisauftrieb;Preise steigen langsamer;rückläufige Inflationsrate;Inflation verlangsamt sich
+7|Energieversorgung|Energiepreise;Energieversorgung;Versorgungsengpass;Lieferengpass;Lieferkettenstörung;Ölpreissprung;Gaspreissprung;Ölknappheit;Gasknappheit;Treibstoffpreise;Strompreise;OPEC-Förderkürzung
+8|Ölpreis steigt|Ölpreis steigt;Ölpreise steigen;Rohöl verteuert sich;Öl wird teurer;Brent steigt;Brent verteuert sich;WTI steigt;Ölpreisanstieg;Ölpreis klettert
+9|Ölpreis fällt|Ölpreis sinkt;Ölpreise sinken;Rohöl verbilligt sich;Öl wird billiger;Brent sinkt;Brent verbilligt sich;WTI sinkt;Ölpreisrückgang;Ölpreis fällt
+10|Goldpreis steigt|Goldpreis steigt;Goldpreise steigen;Gold wird teurer;Gold verteuert sich;Goldpreis klettert;Gold legt zu;Goldpreisanstieg
+11|Goldpreis fällt|Goldpreis sinkt;Goldpreise sinken;Gold wird billiger;Gold verbilligt sich;Goldpreis fällt;Gold gibt nach;Goldpreisrückgang
+12|Politik & Konflikte|Geopolitik;militärischer Konflikt;bewaffneter Konflikt;Krieg;Kriege;Waffenruhe;Sanktionen;Strafzölle;Einfuhrzölle;Handelsstreit;Handelskrieg;Zollkonflikt;Außenpolitik;diplomatische Krise
+13|Immobilien steigen|Immobilienpreise steigen;Wohnungspreise steigen;Hauspreise steigen;Immobilien verteuern sich;Wohnimmobilien teurer;Wohnimmobilienpreise steigen;Immobilienmarkt zieht an;Preisanstieg bei Immobilien
+14|Immobilien fallen|Immobilienpreise sinken;Wohnungspreise sinken;Hauspreise sinken;Immobilien verbilligen sich;Wohnimmobilien günstiger;Immobilienmarkt gibt nach;Preisrückgang bei Immobilien
+15|Extremwetter|Unwetter;Starkregen;Überschwemmung;Hochwasser;Dürre;Hitzewelle;Waldbrand;Erdbeben;Naturkatastrophe;Umweltkatastrophe;Extremwetter;Sturmflut;Orkan
+16|Luft- & Raumfahrt|Luftfahrt;Raumfahrt;Weltraum;Raketenstart;Satellit;Satellitenstart;Raumsonde;Raumstation;Astronaut;Flugzeugbau;Flugverkehr
+17|Umwelt & Energiewende|Klimaschutz;Naturschutz;Umweltschutz;erneuerbare Energie;erneuerbare Energien;Solarenergie;Windenergie;Photovoltaik;Kreislaufwirtschaft;Recycling;Energiewende;Wärmepumpe
+18|Umweltschäden|Umweltverschmutzung;Umweltschaden;Umweltschäden;Umweltzerstörung;Abholzung;Artensterben;Bodenzerstörung;Gewässerverschmutzung;Plastikmüll;Ölpest;Ökosystem zerstört
+19|Infektionsgeschehen|Pandemie;Epidemie;Infektionswelle;Krankheitsausbruch;Virusausbruch;Virus verbreitet sich;Ansteckung;Infektionskrankheit;Erreger;Seuche;Fallzahlen steigen
+20|Armut & Ungleichheit|soziale Ungleichheit;Einkommensungleichheit;Vermögensungleichheit;Armutsquote;Armut;mittellos;Existenznot;soziale Kluft;Reichtum konzentriert sich;Geringverdiener;Lebenshaltungskosten
+21|Künstliche Intelligenz|KI;KI-System;KI-Modell;generative KI;maschinelles Lernen;Sprachmodell;künstliche Intelligenz;Chatbot;Algorithmus;automatisierte Texterzeugung

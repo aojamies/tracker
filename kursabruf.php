@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 
+require_once __DIR__ . '/nachrichtenabruf.php';
+require_once __DIR__ . '/nachrichten_kategorisieren.php';
+
 const INPUT_FILE = __DIR__ . '/aktienliste.txt';
 const OUTPUT_FILE = __DIR__ . '/kurstabelle.txt';
 const HITS_FILE = __DIR__ . '/treffer.txt';
@@ -9,6 +12,7 @@ const INFO_PAGE_FILE = __DIR__ . '/kursinfo.html';
 const STATUS_FILE = __DIR__ . '/kurstabelle.status.txt';
 const CONFIG_FILE = __DIR__ . '/tracker.cfg';
 const CORRELATIONS_FILE = __DIR__ . '/kausalitaet.txt';
+const CATEGORY_HITS_FILE = __DIR__ . '/kategorien_treffer.txt';
 const TIMEZONE = 'Europe/Berlin';
 const REQUEST_TIMEOUT_SECONDS = 20;
 
@@ -330,6 +334,9 @@ function analysiereKurstabelleNachErfolg(): void
 
 function erzeugeKursinfoSeite(): void
 {
+    \Tracker\News\aktualisiereNachrichtenArchiv();
+    \Tracker\Categories\aktualisiereNachrichtenKategorien();
+
     $aktien = leseIsins(INPUT_FILE);
     $zeilen = file(OUTPUT_FILE, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?: [];
     $letzteZeile = count($zeilen) > 1 ? $zeilen[count($zeilen) - 1] : '';
@@ -381,6 +388,7 @@ function erzeugeKursinfoSeite(): void
     if ($statistikHtml === '') {
         $statistikHtml = '<p class="empty">Noch keine Statistikinformationen vorhanden.</p>';
     }
+    $kategorieTrefferHtml = erzeugeNachrichtenKategorieHtml(leseNachrichtenKategorieTreffer(CATEGORY_HITS_FILE));
 
     $zeitreihen = [];
     foreach ($aktien as $index => $aktie) {
@@ -402,10 +410,75 @@ function erzeugeKursinfoSeite(): void
     $datenJson = json_encode($zeitreihen, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_THROW_ON_ERROR);
     $korrelationsJson = json_encode($korrelationsTreffer, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_THROW_ON_ERROR);
     $html = '<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Kursinfo</title><style>' . kursinfoStyles() . '</style></head><body><main><header><div><p class="eyebrow">MARKET TRACKER</p><h1>Kursinfo</h1></div>'
-        . '<div class="filters"><label for="axisLength">Zeitachse<select id="axisLength"><option>1 Tag</option><option>1 Woche</option><option>1 Monat</option><option>6 Monate</option><option>1 Jahr</option><option>alle Werte</option></select></label><label for="industryFilter">Branchen<select id="industryFilter" multiple size="4"><option value="">Alle Branchen</option></select></label><label for="unruheFilter">Maß der Unruhe<select id="unruheFilter"><option value="">Alle Aktien</option><option value="Niedrig">Niedrig</option><option value="Mittel">Mittel</option><option value="Hoch">Hoch</option></select></label><label class="trend-toggle" for="trendLinesToggle"><input id="trendLinesToggle" type="checkbox" checked>Trendlinien</label><label class="trend-toggle" for="positiveCorrelationToggle"><input id="positiveCorrelationToggle" type="checkbox">Positive Korrelation</label><label class="trend-toggle" for="negativeCorrelationToggle"><input id="negativeCorrelationToggle" type="checkbox">Negative Korrelation</label></div></header><section class="overview"><article><h2>Treffer</h2><p class="timestamp">Analyse: ' . html($letzterZeitpunkt ?: 'nicht vorhanden') . '</p>' . $trefferHtml . '</article><article><h2>Statistik</h2><p class="timestamp">Letzter Durchlauf</p>' . $statistikHtml . '</article></section><hr><section><div class="chart-heading"><h2>Kursverlaeufe</h2><span id="chartCount"></span></div><div id="charts" class="charts"></div></section></main><script>const series=' . $datenJson . ';const initialAxis=' . json_encode($axis, JSON_THROW_ON_ERROR) . ';const unruheFensterTage=' . json_encode($unruheFensterTage, JSON_THROW_ON_ERROR) . ';const korrelationsTrefferAnzahl=' . json_encode($korrelationsTrefferAnzahl, JSON_THROW_ON_ERROR) . ';const korrelationsTreffer=' . $korrelationsJson . ';' . kursinfoScript() . '</script></body></html>';
+        . '<div class="filters"><label for="axisLength">Zeitachse<select id="axisLength"><option>1 Tag</option><option>1 Woche</option><option>1 Monat</option><option>6 Monate</option><option>1 Jahr</option><option>alle Werte</option></select></label><label for="industryFilter">Branchen<select id="industryFilter" multiple size="4"><option value="">Alle Branchen</option></select></label><label for="unruheFilter">Maß der Unruhe<select id="unruheFilter"><option value="">Alle Aktien</option><option value="Niedrig">Niedrig</option><option value="Mittel">Mittel</option><option value="Hoch">Hoch</option></select></label><label class="trend-toggle" for="trendLinesToggle"><input id="trendLinesToggle" type="checkbox" checked>Trendlinien</label><label class="trend-toggle" for="positiveCorrelationToggle"><input id="positiveCorrelationToggle" type="checkbox">Positive Korrelation</label><label class="trend-toggle" for="negativeCorrelationToggle"><input id="negativeCorrelationToggle" type="checkbox">Negative Korrelation</label></div></header><section class="overview"><article><h2>Treffer</h2><p class="timestamp">Analyse: ' . html($letzterZeitpunkt ?: 'nicht vorhanden') . '</p>' . $trefferHtml . '</article><article><h2>Statistik</h2><p class="timestamp">Letzter Durchlauf</p>' . $statistikHtml . $kategorieTrefferHtml . '</article></section><hr><section><div class="chart-heading"><h2>Kursverlaeufe</h2><span id="chartCount"></span></div><div id="charts" class="charts"></div></section></main><script>const series=' . $datenJson . ';const initialAxis=' . json_encode($axis, JSON_THROW_ON_ERROR) . ';const unruheFensterTage=' . json_encode($unruheFensterTage, JSON_THROW_ON_ERROR) . ';const korrelationsTrefferAnzahl=' . json_encode($korrelationsTrefferAnzahl, JSON_THROW_ON_ERROR) . ';const korrelationsTreffer=' . $korrelationsJson . ';' . kursinfoScript() . '</script></body></html>';
     if (file_put_contents(INFO_PAGE_FILE, $html, LOCK_EX) === false) {
         throw new RuntimeException('Die Kursinfo-Seite konnte nicht geschrieben werden.');
     }
+}
+
+/** @return list<array{label:string,count:int,links:list<array{title:string,url:string}>}> */
+function leseNachrichtenKategorieTreffer(string $dateiname): array
+{
+    $zeilen = file($dateiname, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    if ($zeilen === false) {
+        throw new RuntimeException('Die Kategorie-Trefferdatei kann nicht gelesen werden.');
+    }
+
+    $kategorien = [];
+    $aktuelleKategorie = null;
+    $aktuelleUeberschrift = '';
+    foreach ($zeilen as $zeile) {
+        if (preg_match('/^\d+\s+(.+):\s+(\d+)$/u', $zeile, $treffer) === 1) {
+            $anzahl = (int) $treffer[2];
+            $aktuelleKategorie = null;
+            $aktuelleUeberschrift = '';
+            if ($anzahl > 0) {
+                $kategorien[] = ['label' => trim($treffer[1]), 'count' => $anzahl, 'links' => []];
+                $aktuelleKategorie = count($kategorien) - 1;
+            }
+            continue;
+        }
+
+        if ($aktuelleKategorie === null) {
+            continue;
+        }
+        if (preg_match('/^\s+Überschrift: (.*)$/u', $zeile, $treffer) === 1) {
+            $aktuelleUeberschrift = trim($treffer[1]);
+        } elseif (preg_match('/^\s+Link: (https?:\/\/\S+)$/u', $zeile, $treffer) === 1) {
+            $url = trim($treffer[1]);
+            if (filter_var($url, FILTER_VALIDATE_URL) !== false) {
+                $kategorien[$aktuelleKategorie]['links'][] = [
+                    'title' => $aktuelleUeberschrift !== '' ? $aktuelleUeberschrift : $url,
+                    'url' => $url,
+                ];
+            }
+            $aktuelleUeberschrift = '';
+        }
+    }
+
+    return $kategorien;
+}
+
+/** @param list<array{label:string,count:int,links:list<array{title:string,url:string}>}> $kategorien */
+function erzeugeNachrichtenKategorieHtml(array $kategorien): string
+{
+    if ($kategorien === []) {
+        return '<div class="category-news"><h3>Nachrichtenkategorien</h3><p class="empty">Keine Kategorie-Treffer vorhanden.</p></div>';
+    }
+
+    $html = '<div class="category-news"><h3>Nachrichtenkategorien</h3>';
+    foreach ($kategorien as $kategorie) {
+        $html .= '<div class="category-group"><strong>' . html($kategorie['label'])
+            . '<span>' . $kategorie['count'] . '</span></strong><ul class="category-links">';
+        foreach ($kategorie['links'] as $link) {
+            $html .= '<li><a href="' . html($link['url']) . '" target="_blank" rel="noopener noreferrer">'
+                . html($link['title']) . '</a></li>';
+        }
+        $html .= '</ul></div>';
+    }
+    $html .= '</div>';
+
+    return $html;
 }
 
 /** @return list<array{zeitpunkt:string,isin:string,bezeichnung:string,diff:string,abfall:string}> */
@@ -603,6 +676,7 @@ select { min-width: 160px; padding: 11px 34px 11px 12px; border: 1px solid var(-
 .overview { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; } article { min-height: 190px; padding: 22px; border: 1px solid var(--line); border-top: 4px solid var(--accent); background: var(--panel); box-shadow: 0 10px 30px rgba(23,34,31,.05); }
 .timestamp, .empty, .result span, .result small, .stat span, .stat small, #chartCount { color: var(--muted); font: 12px/1.5 Arial, sans-serif; } .timestamp { margin: 7px 0 16px; }
 .result, .stat { display: grid; gap: 4px; padding: 11px 0; border-top: 1px solid var(--line); } .result strong, .stat strong { font-size: 16px; } .result small, .stat small { word-break: break-word; } .stock-link { color: inherit; text-decoration: none; } .stock-link:hover { color: var(--accent); text-decoration: underline; }
+.category-news { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); } .category-news h3 { margin: 0 0 7px; font-size: 16px; font-weight: 400; } .category-group { padding: 8px 0; border-top: 1px solid var(--line); } .category-group > strong { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; } .category-group > strong span { color: var(--muted); font: 12px Arial, sans-serif; } .category-links { display: grid; gap: 5px; margin: 6px 0 0; padding: 0 0 0 14px; } .category-links li { color: var(--muted); } .category-links a { color: var(--ink); font: 12px/1.4 Arial, sans-serif; text-decoration: none; } .category-links a:hover { color: var(--accent); text-decoration: underline; }
 .news { display: grid; gap: 4px; margin: 4px 0 0; padding: 0; list-style: none; } .news li { display: grid; gap: 1px; padding-left: 12px; border-left: 2px solid var(--accent-soft); } .news a { color: var(--ink); font: 13px/1.3 Arial, sans-serif; text-decoration: none; } .news a:hover { color: var(--accent); } .news small, .news-empty { font: 10px Arial, sans-serif; color: var(--muted); } .news-empty { margin: 4px 0 0; }
 hr { margin: 38px 0 28px; border: 0; border-top: 1px solid var(--line); } .chart-heading { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; } .charts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
 .chart { min-width: 0; padding: 14px; border: 1px solid var(--line); background: rgba(255,255,255,.78); } .chart h3 { overflow: hidden; margin: 0 0 2px; font-size: 15px; font-weight: 400; text-overflow: ellipsis; white-space: nowrap; } .chart p { margin: 0 0 8px; color: var(--muted); font: 10px Arial, sans-serif; } svg { display: block; width: 100%; height: 150px; overflow: visible; } .gridline { stroke: #e8eeea; stroke-width: 1; } .axis { stroke: #9ca9a3; stroke-width: 1; } .axis-label { fill: var(--muted); font: 9px Arial, sans-serif; } .line { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; } .correlation-line { fill: none; stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; opacity: .9; } .correlation-legend { display: flex; flex-wrap: wrap; gap: 3px 9px; margin-top: 5px; color: var(--muted); font: 8px/1.25 Arial, sans-serif; } .correlation-legend span { max-width: 145px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .correlation-legend span::before { display: inline-block; width: 10px; margin-right: 3px; border-top: 2px solid var(--series-color); content: ''; vertical-align: middle; } .trend-line { stroke: #277b69; stroke-width: 1.5; stroke-dasharray: 5 4; } .no-data { display: grid; place-items: center; height: 150px; color: var(--muted); font: 12px Arial, sans-serif; }
