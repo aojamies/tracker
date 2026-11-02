@@ -467,12 +467,26 @@ function erzeugeNachrichtenKategorieHtml(array $kategorien): string
     }
 
     $html = '<div class="category-news"><h3>Nachrichtenkategorien</h3>';
+    $bereitsGezeigteTitel = [];
     foreach ($kategorien as $kategorie) {
         $html .= '<div class="category-group"><strong>' . html($kategorie['label'])
             . '<span>' . $kategorie['count'] . '</span></strong><ul class="category-links">';
+        $sichtbareLinks = 0;
         foreach ($kategorie['links'] as $link) {
+            $titel = trim(preg_replace('/\s+/u', ' ', $link['title']) ?? $link['title']);
+            $titelSchluessel = function_exists('mb_strtolower')
+                ? mb_strtolower($titel, 'UTF-8')
+                : strtolower($titel);
+            if ($titelSchluessel === '' || isset($bereitsGezeigteTitel[$titelSchluessel])) {
+                continue;
+            }
+            $bereitsGezeigteTitel[$titelSchluessel] = true;
+            $sichtbareLinks++;
             $html .= '<li><a href="' . html($link['url']) . '" target="_blank" rel="noopener noreferrer">'
-                . html($link['title']) . '</a></li>';
+                . html($titel) . '</a></li>';
+        }
+        if ($sichtbareLinks === 0 && $kategorie['links'] !== []) {
+            $html .= '<li class="duplicate-note">Doppelte Überschrift bereits angezeigt.</li>';
         }
         $html .= '</ul></div>';
     }
